@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import AuthControl from "./components/AuthControl";
+import AppState from "./components/AppState";
 
-ReactDOM.render(<AuthControl />, document.getElementById("root"));
+ReactDOM.render(<AppState />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
