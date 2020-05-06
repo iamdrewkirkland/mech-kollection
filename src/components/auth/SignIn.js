@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 
-
-//theme and layout control
+// theme and layout control
 const useStyles = makeStyles((theme) => ({
   form: {
     // display: "grid"
@@ -17,8 +16,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default ({ view, toggle }) => {
+  // set variable "classes" to utilize theme and layout control properties
   const classes = useStyles();
+  // set DOM references to capture user input for sign in form
+  const email = useRef();
+  const password = useRef();
+  
+  const existingUserCheck = () => {
+    return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+      .then((_) => _.json())
+      .then((user) => {
+        if (user.length) {
+          return user[0];
+        }
+        return false;
+      });
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    existingUserCheck().then((exists) => {
+      if (exists && exists.password === password.current.value) {
+        localStorage.setItem("current_user", exists.id);
+        toggle();
+      } else if (exists && exists.password !== password.current.value) {
+        window.alert("Password does not match");
+      } else if (!exists) {
+        window.alert("User account does not exist");
+      }
+    });
+  };
   return (
     <>
       <Typography component="p">please sign in</Typography>
@@ -28,6 +58,7 @@ export default ({ view, toggle }) => {
           margin="normal"
           required
           fullWidth
+          ref={email}
           id="email"
           label="Email Address"
           name="email"
@@ -39,13 +70,20 @@ export default ({ view, toggle }) => {
           margin="normal"
           required
           fullWidth
+          ref={password}
           name="password"
           label="Password"
           type="password"
           id="password"
           autoComplete="current-password"
         />
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={handleLogin}
+        >
           Sign In
         </Button>
       </form>

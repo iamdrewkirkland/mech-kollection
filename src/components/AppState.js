@@ -8,18 +8,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import StaticHead from "./auth/StaticHead";
 
 const useStyles = makeStyles((theme) => ({
-paper: {
-  display: "flex",
-  flexFlow: "column nowrap",
-  alignItems: "center",
-  marginTop: theme.spacing(10),
-  padding: theme.spacing(2),
-},
+  paper: {
+    display: "flex",
+    flexFlow: "column nowrap",
+    alignItems: "center",
+    marginTop: theme.spacing(10),
+    padding: theme.spacing(2),
+  },
 }));
 
 export default () => {
   // set variable for styles
-  const classes = useStyles()
+  const classes = useStyles();
 
   //state hooks
   const [components, setComponents] = useState();
@@ -27,7 +27,7 @@ export default () => {
   //components with state function passed as key-value pair
   const signIn = () => <SignIn view={setActiveView} />;
   const register = () => <Register view={setActiveView} />;
-
+  
   // effect hooks to change the component
   useEffect(() => {
     if (activeView === "signIn") {
@@ -41,10 +41,10 @@ export default () => {
   return (
     <>
       <Container className="componentView" maxWidth="xs">
-       <Paper className={classes.paper} elevation={10}>
-         <StaticHead />
-         {components}
-       </Paper>
+        <Paper className={classes.paper} elevation={10}>
+          <StaticHead />
+          {components}
+        </Paper>
       </Container>
     </>
   );

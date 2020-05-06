@@ -6,17 +6,14 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 
-
-
 // theme and layout control
-const useStyles = makeStyles(theme => ({
-    form:{
-        display:"grid",
-    }
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: "grid",
+  },
 }));
 
-
-const Register = ({view}) => {
+const Register = ({ view }) => {
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
@@ -24,9 +21,7 @@ const Register = ({view}) => {
   const password = useRef();
   const verifyPassword = useRef();
 
-
-
-  const classes = useStyles()
+  const classes = useStyles();
 
   const existingUserCheck = () => {
     return fetch(`http://localhost:8088/customers?email=${email.current.value}`)
@@ -152,9 +147,8 @@ const Register = ({view}) => {
       </form>
       <Link
         component="button"
-        
         onClick={() => {
-          props.view("signIn");
+          view("signIn");
         }}
       >
         {"Already have an account? Sign in here."}

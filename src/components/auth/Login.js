@@ -10,7 +10,7 @@ const Login = props => {
 
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${email.current.value}`)
-            .then(_ => _.json())
+            .then(response => response.json())
             .then(user => {
                 if (user.length) {
                     return user[0]
