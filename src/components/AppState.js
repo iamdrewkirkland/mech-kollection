@@ -9,9 +9,9 @@ import StaticHead from "./auth/StaticHead";
 
 const useStyles = makeStyles((theme) => ({
 paper: {
-  display: "grid",
-  // flexFlow: "column nowrap",
-  // alignItems: "center",
+  display: "flex",
+  flexFlow: "column nowrap",
+  alignItems: "center",
   marginTop: theme.spacing(10),
   padding: theme.spacing(2),
 },
@@ -41,7 +41,7 @@ export default () => {
   return (
     <>
       <Container className="componentView" maxWidth="xs">
-       <Paper className={classes.paper}>
+       <Paper className={classes.paper} elevation={10}>
          <StaticHead />
          {components}
        </Paper>

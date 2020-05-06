@@ -5,13 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 
-//function to clear login form and render register form
-//state hook for login/register?
 
 //theme and layout control
 const useStyles = makeStyles((theme) => ({
   form: {
-    marginTop: theme.spacing(2),
+    // display: "grid"
   },
   fakeLink: {
     marginTop: theme.spacing(2),

@@ -4,14 +4,29 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Register = (props) => {
+
+
+// theme and layout control
+const useStyles = makeStyles(theme => ({
+    form:{
+        display:"grid",
+    }
+}));
+
+
+const Register = ({view}) => {
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
   const username = useRef();
   const password = useRef();
   const verifyPassword = useRef();
+
+
+
+  const classes = useStyles()
 
   const existingUserCheck = () => {
     return fetch(`http://localhost:8088/customers?email=${email.current.value}`)
@@ -56,7 +71,7 @@ const Register = (props) => {
   return (
     <>
       <Typography>please register here</Typography>
-      <form noValidate>
+      <form className={classes.form} noValidate>
         <Grid container spacing={1}>
           <Grid item>
             <TextField
@@ -139,7 +154,7 @@ const Register = (props) => {
         component="button"
         
         onClick={() => {
-        //   view("signIn");
+          props.view("signIn");
         }}
       >
         {"Already have an account? Sign in here."}
