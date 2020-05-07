@@ -5,11 +5,11 @@ import PeopleIcon from "@material-ui/icons/People";
 const Friend = () => {
   return (
     <>
-      <Avatar variant={"rounded"}>
+      <Avatar variant={"rounded"} >
         <PeopleIcon />
       </Avatar>
 
-      <Typography>My Friend's Name</Typography>
+      <Typography>FirstName LastName</Typography>
     </>
   );
 };

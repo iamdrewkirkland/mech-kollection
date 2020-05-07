@@ -7,6 +7,7 @@ import {
   TableBody,
 } from "@material-ui/core";
 
+
 // Grab results where userId matches the current user
 const results = [1,2,3,4]
 // Put results into row format
@@ -29,11 +30,11 @@ const ResultsList = () => {
         <TableBody>
           {results.map((result) => (
             <TableRow key={result}>
-              <TableCell>1</TableCell>
-              <TableCell>2</TableCell>
-              <TableCell>3</TableCell>
-              <TableCell>4</TableCell>
-              <TableCell>5</TableCell>
+              <TableCell>Today</TableCell>
+              <TableCell>Polaris</TableCell>
+              <TableCell>120</TableCell>
+              <TableCell>NO</TableCell>
+              <TableCell>10fastfingers.com</TableCell>
             </TableRow>
           ))}
         </TableBody>

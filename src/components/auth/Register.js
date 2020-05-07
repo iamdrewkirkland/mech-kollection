@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = ({ view }) => {
+const Register = ({ view, toggleForm }) => {
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
@@ -147,9 +147,7 @@ const Register = ({ view }) => {
       </form>
       <Link
         component="button"
-        onClick={() => {
-          view("signIn");
-        }}
+        onClick={toggleForm}
       >
         {"Already have an account? Sign in here."}
       </Link>

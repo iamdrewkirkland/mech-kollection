@@ -54,7 +54,6 @@ const NewBuild = () => {
 
   return (
     <>
-      <Container maxWidth="md">
         <Paper className={classes.paper}>
           <Typography variant="h4">Add New Build</Typography>
           <Stepper activeStep={activeStep}>
@@ -92,7 +91,6 @@ const NewBuild = () => {
             )}
           </>
         </Paper>
-      </Container>
     </>
   );
 };

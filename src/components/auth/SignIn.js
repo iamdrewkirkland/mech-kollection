@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default ({ view, toggle }) => {
+export default ({ view, toggle, toggleForm }) => {
   // set variable "classes" to utilize theme and layout control properties
   const classes = useStyles();
   // set DOM references to capture user input for sign in form
@@ -90,9 +90,7 @@ export default ({ view, toggle }) => {
       <Link
         component="button"
         className={classes.fakeLink}
-        onClick={() => {
-          view("register");
-        }}
+        onClick={toggleForm}
       >
         {"Don't have an account? Register here."}
       </Link>

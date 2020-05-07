@@ -6,7 +6,6 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import StaticHead from "./auth/StaticHead";
-import BuildList from "./builds/BuildList";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,41 +17,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
-export default () => {
+export default function LoginState() {
   // set variable for styles
   const classes = useStyles();
 
-      // const toggle = () => update(!check); 
+  const [showForm, toggleShowForm] = useState(false);
+  const toggleForm = () => toggleShowForm(!showForm);
 
-  //state hooks
-  const [components, setComponents] = useState();
-  const [activeView, setActiveView] = useState("signIn");
-  //components with state function passed as key-value pair
-  const signIn = () => <SignIn view={setActiveView} />;
-  const register = () => <Register view={setActiveView} />;
-  const buildList = () => <BuildList view={setActiveView} />;
-  
-  // effect hooks to change the component
-  useEffect(() => {
-    if (activeView === "signIn") {
-      setComponents(signIn);
-    } else if (activeView === "register") {
-      setComponents(register);
-    } 
-  }, [activeView]);
-
-  // jsx fragment container to hold current component
   return (
     <>
       <Container className="componentView" maxWidth="xs">
         <Paper className={classes.paper} elevation={10}>
           <StaticHead />
-          {components}
+          {showForm ? (
+            <Register toggleForm={toggleForm} />
+          ) : (
+            <SignIn toggleForm={toggleForm} />
+          )}
         </Paper>
       </Container>
     </>
   );
-};
+}

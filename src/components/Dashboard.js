@@ -13,6 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import BuildList from "./builds/BuildList";
 import ResultsList from "./testResults/ResultsList";
 import FriendList from "./friends/FriendList";
+import ResultsView from "./testResults/ResultsView";
+import BuildsView from "./builds/BuildsView";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -91,13 +93,11 @@ const Dashboard = () => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  <BuildList />
+                  <BuildsView />
                 </Paper>
               </Grid>
               <Grid item lg={7}>
-                <Paper className={fixedHeightPaper}>
-                  <ResultsList />
-                </Paper>
+                <ResultsView />
               </Grid>
               <Grid item lg={4}>
                 <Paper className={fixedHeightPaper}>

@@ -25,9 +25,6 @@ const BuildList = () => {
         {fakeBuilds.map(() => (
           <Build />
         ))}
-        <Button onClick={() => {
-          ;
-        }} />
       </Container>
     </>
   );
