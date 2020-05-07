@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -44,6 +44,24 @@ const useStyles = makeStyles((theme) => ({
     height: 350,
   },
 }));
+
+  //state hooks
+  const [components, setComponents] = useState();
+  const [activeView, setActiveView] = useState("");
+  //components with state function passed as key-value pair
+  
+  const builds = () => <BuildList view={setActiveView} />;
+  const results = () => <ResultsList view={setActiveView} />;
+  const friends = () => <FriendList view={setActiveView} />;
+  
+  
+
+  // effect hooks to change the component
+  useEffect(() => {
+    if (activeView === "buildList") {
+      setComponents(builds);
+    }
+  }, [activeView]);
 
 
 const Dashboard = () => {

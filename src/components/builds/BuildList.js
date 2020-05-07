@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BuildList = ({ view }) => {
+const BuildList = () => {
   const classes = useStyles();
   const fakeBuilds = [1, 2, 3];
   return (
@@ -26,7 +26,7 @@ const BuildList = ({ view }) => {
           <Build />
         ))}
         <Button onClick={() => {
-          view("buidList");
+          ;
         }} />
       </Container>
     </>

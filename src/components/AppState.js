@@ -41,9 +41,7 @@ export default () => {
       setComponents(signIn);
     } else if (activeView === "register") {
       setComponents(register);
-    } else if (activeView === "buildList") {
-      setComponents(buildList)
-    }
+    } 
   }, [activeView]);
 
   // jsx fragment container to hold current component
