@@ -8,7 +8,6 @@ import { Card, CardHeader, Typography, CardContent } from "@material-ui/core";
 
 const Build = () => {
   return (
-    <>
       <Card>
         <CardHeader title={null} subheader={null} />
         <CardContent>
@@ -19,7 +18,6 @@ const Build = () => {
           </div>
         </CardContent>
       </Card>
-    </>
   );
 };
 

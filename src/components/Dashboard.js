@@ -10,6 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import BuildList from "./builds/BuildList";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     display:"flex",
+    flexDirection:"row",
     overflow:"auto"
   },
   fixedHeight: {
@@ -69,12 +71,12 @@ const Dashboard = () => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  This is the first grid item. BuildList goes here.
+                <BuildList />
                 </Paper>
               </Grid>
               <Grid item lg={7}>
                 <Paper className={fixedHeightPaper}>
-                  This is the second grid item. ResultsList goes here.
+                  This is the second grid item. Test results goes here.
                 </Paper>
               </Grid>
               <Grid item lg={4}>

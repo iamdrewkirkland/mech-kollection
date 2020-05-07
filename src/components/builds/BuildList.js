@@ -1,4 +1,6 @@
 import React from "react";
+import { makeStyles, Container } from "@material-ui/core";
+import Build from "./Build";
 
 /**
  *  Component: BuildList
@@ -7,14 +9,26 @@ import React from "react";
  *  Author: Drew Kirkland
  */
 
- const fakeBuilds = [1,2,3]
+ const useStyles = makeStyles(theme => ({
+    buildList:{
+        display:"flex",
+        flexFlow:"row wrap",
+        
+    }
+ }));
 
- const BuildList = () => {
-     return (
-         <>
-            
-         </>
-     )
- }
+const BuildList = () => {
+    const classes = useStyles()
+  const fakeBuilds = [1, 2, 3];
+  return (
+    <>
+      <Container className={classes.buildList}>
+        {fakeBuilds.map(() => (
+          <Build />
+        ))}
+      </Container>
+    </>
+  );
+};
 
- export default BuildList
+export default BuildList;
