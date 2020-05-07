@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 
-export default function CaseForm() {
+export default function SwitchForm() {
   return (
     <>
       <Typography variant="h4">Switches</Typography>

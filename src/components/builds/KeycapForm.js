@@ -11,10 +11,10 @@ import {
   FormControl,
 } from "@material-ui/core";
 
-export default function CaseForm() {
+export default function KeycapForm() {
   return (
     <>
-      <Typography variant="h4">Key Caps</Typography>
+      <Typography variant="h4">Keycaps</Typography>
       <Grid container spacing={1}>
         <Grid item>
           <TextField label="Name" />
@@ -23,8 +23,8 @@ export default function CaseForm() {
           <TextField label="Profile" />
         </Grid>
         <Grid>
-          <InputLabel id="switchMaterial">Material</InputLabel>
-          <Select labelId="switchMaterial">
+          <InputLabel id="keycapMaterial">Material</InputLabel>
+          <Select labelId="keycapMaterial">
             <MenuItem>1</MenuItem>
             <MenuItem>2</MenuItem>
             <MenuItem>3</MenuItem>

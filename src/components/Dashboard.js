@@ -45,23 +45,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-  //state hooks
-  const [components, setComponents] = useState();
-  const [activeView, setActiveView] = useState("");
-  //components with state function passed as key-value pair
+  // //state hooks
+  // const [components, setComponents] = useState();
+  // const [activeView, setActiveView] = useState("");
+  // //components with state function passed as key-value pair
   
-  const builds = () => <BuildList view={setActiveView} />;
-  const results = () => <ResultsList view={setActiveView} />;
-  const friends = () => <FriendList view={setActiveView} />;
+  // const builds = () => <BuildList view={setActiveView} />;
+  // const results = () => <ResultsList view={setActiveView} />;
+  // const friends = () => <FriendList view={setActiveView} />;
   
   
 
-  // effect hooks to change the component
-  useEffect(() => {
-    if (activeView === "buildList") {
-      setComponents(builds);
-    }
-  }, [activeView]);
+  // // effect hooks to change the component
+  // useEffect(() => {
+  //   if (activeView === "buildList") {
+  //     setComponents(builds);
+  //   }
+  // }, [activeView]);
 
 
 const Dashboard = () => {
