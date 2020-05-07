@@ -6,6 +6,7 @@ import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import StaticHead from "./auth/StaticHead";
+import BuildList from "./builds/BuildList";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -17,9 +18,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 export default () => {
   // set variable for styles
   const classes = useStyles();
+
+      // const toggle = () => update(!check); 
 
   //state hooks
   const [components, setComponents] = useState();
@@ -27,6 +33,7 @@ export default () => {
   //components with state function passed as key-value pair
   const signIn = () => <SignIn view={setActiveView} />;
   const register = () => <Register view={setActiveView} />;
+  const buildList = () => <BuildList view={setActiveView} />;
   
   // effect hooks to change the component
   useEffect(() => {
@@ -34,6 +41,8 @@ export default () => {
       setComponents(signIn);
     } else if (activeView === "register") {
       setComponents(register);
+    } else if (activeView === "buildList") {
+      setComponents(buildList)
     }
   }, [activeView]);
 

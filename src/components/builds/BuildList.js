@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Container } from "@material-ui/core";
+import { makeStyles, Container, Button } from "@material-ui/core";
 import Build from "./Build";
 
 /**
@@ -9,16 +9,15 @@ import Build from "./Build";
  *  Author: Drew Kirkland
  */
 
- const useStyles = makeStyles(theme => ({
-    buildList:{
-        display:"flex",
-        flexFlow:"row wrap",
-        
-    }
- }));
+const useStyles = makeStyles((theme) => ({
+  buildList: {
+    display: "flex",
+    flexFlow: "row wrap",
+  },
+}));
 
-const BuildList = () => {
-    const classes = useStyles()
+const BuildList = ({ view }) => {
+  const classes = useStyles();
   const fakeBuilds = [1, 2, 3];
   return (
     <>
@@ -26,6 +25,9 @@ const BuildList = () => {
         {fakeBuilds.map(() => (
           <Build />
         ))}
+        <Button onClick={() => {
+          view("buidList");
+        }} />
       </Container>
     </>
   );

@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import BuildList from "./builds/BuildList";
 import ResultsList from "./testResults/ResultsList";
+import FriendList from "./friends/FriendList";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -35,16 +36,16 @@ const useStyles = makeStyles((theme) => ({
 
   paper: {
     padding: theme.spacing(2),
-    display:"flex",
-    flexDirection:"row",
-    overflow:"auto"
+    display: "flex",
+    flexDirection: "row",
+    overflow: "auto",
   },
   fixedHeight: {
     height: 350,
   },
 }));
 
-// invisible appbar with centered logo text
+
 const Dashboard = () => {
   // theme and layout control variables
   const classes = useStyles();
@@ -72,7 +73,7 @@ const Dashboard = () => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                <BuildList />
+                  <BuildList />
                 </Paper>
               </Grid>
               <Grid item lg={7}>
@@ -82,7 +83,7 @@ const Dashboard = () => {
               </Grid>
               <Grid item lg={4}>
                 <Paper className={fixedHeightPaper}>
-                  This is the third grid item. FriendList goes here.
+                  <FriendList />
                 </Paper>
               </Grid>
             </Grid>
