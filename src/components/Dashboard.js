@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import BuildList from "./builds/BuildList";
+import ResultsList from "./testResults/ResultsList";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -76,7 +77,7 @@ const Dashboard = () => {
               </Grid>
               <Grid item lg={7}>
                 <Paper className={fixedHeightPaper}>
-                  This is the second grid item. Test results goes here.
+                  <ResultsList />
                 </Paper>
               </Grid>
               <Grid item lg={4}>
