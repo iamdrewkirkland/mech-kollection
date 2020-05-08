@@ -13,6 +13,8 @@ import Paper from "@material-ui/core/Paper";
 import ResultsView from "./testResults/ResultsView";
 import BuildsView from "./builds/BuildsView";
 import FriendsView from "./friends/FriendView";
+import { Button } from "@material-ui/core";
+
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -46,10 +48,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Dashboard = () => {
+
+const Dashboard = ({toggleAuth}) => {
   // theme and layout control variables
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  function logout() {
+    localStorage.removeItem("current_user")
+    toggleAuth()
+  }
+
   return (
     <>
       <div className={classes.root}>
@@ -67,6 +76,10 @@ const Dashboard = () => {
             <ListItem>2</ListItem>
             <ListItem>3</ListItem>
           </List>
+          <Button
+            variant="contained"
+            onClick={logout}
+          >Logout</Button>
         </Drawer>
         <main>
           <Container maxWidth="lg" className={classes.container}>

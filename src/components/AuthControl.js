@@ -7,7 +7,7 @@ export default () => {
   const toggleAuth = () => updateAuth(!isAuth);
 
   return localStorage.getItem("current_user") ? (
-    <Dashboard />
+    <Dashboard toggleAuth={toggleAuth} />
   ) : (
     <LoginState toggleAuth={toggleAuth} />
   );
