@@ -7,7 +7,7 @@ import ResultsForm from "./ResultsForm";
 export default function ResultsView() {
   const [showForm, toggleShowForm] = useState(false);
   return (
-    <Paper>
+      <>
       {showForm ? (
         <ResultsForm toggleForm={toggleShowForm} />
       ) : (
@@ -16,6 +16,6 @@ export default function ResultsView() {
       <Button variant="contained" color="primary" onClick={()=>{
           toggleShowForm(!showForm)
       }}>{showForm ? ('Back') : ('Add Results')}</Button>
-    </Paper>
+      </>
   );
 }

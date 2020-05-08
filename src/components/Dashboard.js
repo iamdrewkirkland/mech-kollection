@@ -15,6 +15,7 @@ import ResultsList from "./testResults/ResultsList";
 import FriendList from "./friends/FriendList";
 import ResultsView from "./testResults/ResultsView";
 import BuildsView from "./builds/BuildsView";
+import FriendsView from "./friends/FriendView";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -47,24 +48,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-  // //state hooks
-  // const [components, setComponents] = useState();
-  // const [activeView, setActiveView] = useState("");
-  // //components with state function passed as key-value pair
-  
-  // const builds = () => <BuildList view={setActiveView} />;
-  // const results = () => <ResultsList view={setActiveView} />;
-  // const friends = () => <FriendList view={setActiveView} />;
-  
-  
+// //state hooks
+// const [components, setComponents] = useState();
+// const [activeView, setActiveView] = useState("");
+// //components with state function passed as key-value pair
 
-  // // effect hooks to change the component
-  // useEffect(() => {
-  //   if (activeView === "buildList") {
-  //     setComponents(builds);
-  //   }
-  // }, [activeView]);
+// const builds = () => <BuildList view={setActiveView} />;
+// const results = () => <ResultsList view={setActiveView} />;
+// const friends = () => <FriendList view={setActiveView} />;
 
+// // effect hooks to change the component
+// useEffect(() => {
+//   if (activeView === "buildList") {
+//     setComponents(builds);
+//   }
+// }, [activeView]);
 
 const Dashboard = () => {
   // theme and layout control variables
@@ -97,11 +95,13 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
               <Grid item lg={7}>
-                <ResultsView />
+                <Paper className={fixedHeightPaper}>
+                  <ResultsView />
+                </Paper>
               </Grid>
               <Grid item lg={4}>
                 <Paper className={fixedHeightPaper}>
-                  <FriendList />
+                  <FriendsView />
                 </Paper>
               </Grid>
             </Grid>
