@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Paper, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import ResultsList from "./ResultsList";
 import ResultsForm from "./ResultsForm";
 
