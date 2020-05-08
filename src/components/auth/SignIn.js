@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default ({ view, toggle, toggleForm }) => {
+export default ({ toggleAuth, toggleForm }) => {
   // set variable "classes" to utilize theme and layout control properties
   const classes = useStyles();
   // set DOM references to capture user input for sign in form
@@ -41,7 +41,7 @@ export default ({ view, toggle, toggleForm }) => {
     existingUserCheck().then((exists) => {
       if (exists && exists.password === password.current.value) {
         localStorage.setItem("current_user", exists.id);
-        toggle();
+        toggleAuth();
       } else if (exists && exists.password !== password.current.value) {
         window.alert("Password does not match");
       } else if (!exists) {
@@ -51,14 +51,14 @@ export default ({ view, toggle, toggleForm }) => {
   };
   return (
     <>
-      <Typography component="p">please sign in</Typography>
+      <Typography component="p">Sign In</Typography>
       <form className={classes.form} noValidate>
         <TextField
           variant="outlined"
           margin="normal"
           required
           fullWidth
-          ref={email}
+          inputRef={email}
           id="email"
           label="Email Address"
           name="email"
@@ -70,7 +70,7 @@ export default ({ view, toggle, toggleForm }) => {
           margin="normal"
           required
           fullWidth
-          ref={password}
+          inputRef={password}
           name="password"
           label="Password"
           type="password"

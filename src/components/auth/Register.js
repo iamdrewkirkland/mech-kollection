@@ -11,9 +11,13 @@ const useStyles = makeStyles((theme) => ({
   form: {
     display: "grid",
   },
+  fakeLink: {
+    marginTop: theme.spacing(2),
+    alignSelf: "flex-end",
+  }
 }));
 
-const Register = ({ view, toggleForm }) => {
+const Register = ({ toggleAuth, toggleForm }) => {
   const firstName = useRef();
   const lastName = useRef();
   const email = useRef();
@@ -39,7 +43,7 @@ const Register = ({ view, toggleForm }) => {
 
     if (password.current.value === verifyPassword.current.value) {
       existingUserCheck().then(() => {
-        fetch("http://localhost:8088/customers", {
+        fetch("http://localhost:8088/users", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -48,13 +52,15 @@ const Register = ({ view, toggleForm }) => {
             email: email.current.value,
             password: password.current.value,
             username: username.current.value,
-            name: `${firstName.current.value} ${lastName.current.value}`,
+            firstName: firstName.current.value, 
+            lastName: lastName.current.value,
           }),
         })
           .then((_) => _.json())
           .then((createdUser) => {
             if (createdUser.hasOwnProperty("id")) {
               localStorage.setItem("current_user", createdUser.id);
+              toggleAuth()
             }
           });
       });
@@ -65,7 +71,7 @@ const Register = ({ view, toggleForm }) => {
 
   return (
     <>
-      <Typography>please register here</Typography>
+      <Typography>Register</Typography>
       <form className={classes.form} noValidate>
         <Grid container spacing={1}>
           <Grid item>
@@ -74,7 +80,7 @@ const Register = ({ view, toggleForm }) => {
               margin="normal"
               required
               id="firstName"
-              ref={firstName}
+              inputRef={firstName}
               label="First Name"
               name="firstName"
               autoComplete="given-name"
@@ -86,7 +92,7 @@ const Register = ({ view, toggleForm }) => {
               variant="outlined"
               margin="normal"
               required
-              ref={lastName}
+              inputRef={lastName}
               id="lastName"
               label="Last Name"
               name="lastName"
@@ -97,7 +103,7 @@ const Register = ({ view, toggleForm }) => {
             <TextField
               variant="outlined"
               margin="normal"
-              ref={username}
+              inputRef={username}
               id="userName"
               label="Username"
               name="username"
@@ -109,7 +115,7 @@ const Register = ({ view, toggleForm }) => {
               variant="outlined"
               margin="normal"
               required
-              ref={email}
+              inputRef={email}
               id="email"
               label="Email Address"
               name="email"
@@ -121,7 +127,7 @@ const Register = ({ view, toggleForm }) => {
               variant="outlined"
               margin="normal"
               required
-              ref={password}
+              inputRef={password}
               id="password"
               label="Password"
               name="password"
@@ -133,19 +139,25 @@ const Register = ({ view, toggleForm }) => {
               variant="outlined"
               margin="normal"
               required
-              ref={verifyPassword}
+              inputRef={verifyPassword}
               id="verifyPassword"
               label="Verify Password"
               name="verifypassword"
               autoComplete="new-password"
             />
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            Sign In
+          <Button 
+          onClick={handleRegister}
+          type="submit" 
+          fullWidth 
+          variant="contained" 
+          color="primary">
+            Submit
           </Button>
         </Grid>
       </form>
       <Link
+        className={classes.fakeLink}
         component="button"
         onClick={toggleForm}
       >

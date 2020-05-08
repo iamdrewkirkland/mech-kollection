@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LoginState() {
+export default function LoginState({ toggleAuth }) {
   // set variable for styles
   const classes = useStyles();
 
@@ -30,9 +30,9 @@ export default function LoginState() {
         <Paper className={classes.paper} elevation={10}>
           <StaticHead />
           {showForm ? (
-            <Register toggleForm={toggleForm} />
+            <Register toggleForm={toggleForm} toggleAuth={toggleAuth} />
           ) : (
-            <SignIn toggleForm={toggleForm} />
+            <SignIn toggleForm={toggleForm} toggleAuth={toggleAuth} />
           )}
         </Paper>
       </Container>

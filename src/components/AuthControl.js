@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Dashboard } from "./Dashboard";
-import SignIn from "./auth/SignIn";
+import Dashboard from "./Dashboard";
+import LoginState from "./LoginState";
 
 export default () => {
-  const [check, update] = useState(false);
-  const toggle = () => update(!check);
+  const [isAuth, updateAuth] = useState(false);
+  const toggleAuth = () => updateAuth(!isAuth);
 
   return localStorage.getItem("current_user") ? (
     <Dashboard />
   ) : (
-    <SignIn toggle={toggle} />
+    <LoginState toggleAuth={toggleAuth} />
   );
 };
