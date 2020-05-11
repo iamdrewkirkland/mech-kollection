@@ -22,8 +22,8 @@ const BuildList = () => {
   return (
     <>
       <Container className={classes.buildList}>
-        {fakeBuilds.map(() => (
-          <Build />
+        {fakeBuilds.map((build) => (
+          <Build key={build}/>
         ))}
       </Container>
     </>
