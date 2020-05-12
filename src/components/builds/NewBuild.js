@@ -36,7 +36,7 @@ export default function NewBuild() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <BuildForm setInputs={setBuildInputs} />;
+        return <BuildForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
       case 1:
         return <CaseForm />;
       case 2:
@@ -57,8 +57,6 @@ export default function NewBuild() {
   //function for "next" button action
   const handleNext = () => {
     //if active step = steps.length then AddBuild
-    console.log(buildInputs)
-    debugger
     setActiveStep(activeStep + 1);
   };
 
