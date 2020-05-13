@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -11,16 +11,37 @@ import {
   FormControl,
 } from "@material-ui/core";
 
-export default function KeycapForm() {
+export default function KeycapForm({ currentInputs, setInputs }) {
+  const keycapName = useRef();
+  const keycapProfile = useRef();
+
+  let currentBuildObject = { ...currentInputs };
+
+  const handleChange = () => {
+    const newBuildObject = {
+      keycapName: keycapName.current.value,
+      keycapProfile: keycapProfile.current.value,
+    };
+    setInputs(Object.assign(currentBuildObject, newBuildObject));
+  };
+
   return (
     <>
       <Typography variant="h4">Keycaps</Typography>
       <Grid container spacing={1}>
         <Grid item>
-          <TextField label="Name" />
+          <TextField
+            label="Name"
+            onChange={handleChange}
+            inputRef={keycapName}
+          />
         </Grid>
         <Grid item>
-          <TextField label="Profile" />
+          <TextField
+            label="Profile"
+            onChange={handleChange}
+            inputRef={keycapProfile}
+          />
         </Grid>
         <Grid>
           <InputLabel id="keycapMaterial">Material</InputLabel>

@@ -20,7 +20,6 @@ export default function CaseForm({currentInputs, setInputs}) {
     }
     setInputs(Object.assign(currentBuildObject, newBuildObject));
   }
-
   return (
     <>
       <Typography variant="h4">Case Info</Typography>
