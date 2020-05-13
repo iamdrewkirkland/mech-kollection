@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Switch } from "@material-ui/core";
 
-export const BuildForm = ({ status, setStatus, currentInputs, setInputs }) => {
+export default function BuildForm({ status, setStatus, currentInputs, setInputs }) {
   const buildName = useRef();
   const buildWeight = useRef();
   let isActive = false;
@@ -32,7 +32,7 @@ export const BuildForm = ({ status, setStatus, currentInputs, setInputs }) => {
 
   return (
     <>
-      <Typography variant="h4">Build Info</Typography>
+      <Typography variant="h6">Build Info</Typography>
       <Grid container spacing={1}>
         <Grid item>
           <TextField
