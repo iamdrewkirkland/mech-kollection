@@ -39,7 +39,7 @@ export default function NewBuild() {
    */
   const [buildInputs, setBuildInputs] = useState(null);
   const [buildStatus, setBuildStatus] = useState(null);
-  // const [caseInputs, setCaseInputs] = useState(null);
+  const [caseInputs, setCaseInputs] = useState(null);
 
   //separating form inputs into new objects to be posted
   const newBuildObject = { ...buildInputs };
