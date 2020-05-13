@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { BuildForm } from "./BuildForm";
+import BuildForm from "./BuildForm";
 import CaseForm from "./CaseForm";
 import KeycapForm from "./KeycapForm";
 import SwitchForm from "./SwitchForm";
@@ -13,6 +13,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
+import { StatusContext } from "../statuses/StatusProvider";
 
 //function to override default styling
 const useStyles = makeStyles((theme) => ({
@@ -28,10 +29,9 @@ export default function NewBuild() {
   //variable to hold styles
   const classes = useStyles();
 
-  //variable to hold function to post data to API
+  //functions for posting data to API
   const { addBuild } = useContext(BuildContext);
-  //array declaring the name and order of the steps
-  const steps = ["Build Details", "Case", "Switches", "Keycaps"];
+  const { addStatus } = useContext(StatusContext);
 
   /**
    * state hook to set and contain the form input values.
@@ -41,8 +41,12 @@ export default function NewBuild() {
   const [buildStatus, setBuildStatus] = useState(null);
   // const [caseInputs, setCaseInputs] = useState(null);
 
+  //separating form inputs into new objects to be posted
   const newBuildObject = { ...buildInputs };
   const newStatusObject = { ...buildStatus };
+
+  //array declaring the name and order of the steps
+  const steps = ["Build Details", "Case", "Switches", "Keycaps"];
 
   //function to return the content of the corresponding step
   function getStepContent(step) {
@@ -70,10 +74,10 @@ export default function NewBuild() {
   //state hook to check and set the current form step
   const [activeStep, setActiveStep] = useState(0);
 
-  //function for "next" button action
+  //function for "next" button action. on final step, post all data. 
   const handleNext = () => {
     if (activeStep === steps.length) {
-      submitBuild(newBuildObject);
+      submitBuild();
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -84,9 +88,10 @@ export default function NewBuild() {
     setActiveStep(activeStep - 1);
   };
 
+  //function that designates all build data to appropriate resource
   function submitBuild() {
     addBuild(newBuildObject);
-    
+    addStatus(newStatusObject);
   }
 
   return (
