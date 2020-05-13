@@ -16,6 +16,7 @@ import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
 import { BuildProvider } from "./builds/BuildDataProvider";
 import { ResultsProvider } from "./testResults/ResultsProvider";
+import { StatusProvider } from "./statuses/StatusProvider";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -85,7 +86,9 @@ const Dashboard = ({ toggleAuth }) => {
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
                   <BuildProvider>
-                    <BuildsView />
+                    <StatusProvider>
+                      <BuildsView />
+                    </StatusProvider>
                   </BuildProvider>
                 </Paper>
               </Grid>
