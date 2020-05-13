@@ -12,16 +12,14 @@ export const MaterialContext = React.createContext()
 export const MaterialProvider = (props) => {
     const [materials, setMaterials] = useState([])
 
-    const getMaterials = () => {
-        return fetch("http://localhost:8088/materials")
+    const getMaterials = (resource) => {
+        return fetch(`http://localhost:8088/materials`)
             .then(res => res.json())
             .then(setMaterials)
     }
 
-
-
     /*
-        Load all builds when the component is mounted. Ensure that
+        Load all materials when the component is mounted. Ensure that
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
@@ -34,7 +32,7 @@ export const MaterialProvider = (props) => {
 
     return (
         <MaterialContext.Provider value={{
-            materials, 
+            materials, getMaterials
         }}>
             {props.children}
         </MaterialContext.Provider>

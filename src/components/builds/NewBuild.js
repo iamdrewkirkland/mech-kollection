@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
 import { StatusContext } from "../statuses/StatusProvider";
+import { MaterialContext } from "../materials/MaterialProvider";
 
 //function to override default styling
 const useStyles = makeStyles((theme) => ({
@@ -29,13 +30,17 @@ export default function NewBuild() {
   //variable to hold styles
   const classes = useStyles();
 
-  //functions for posting data to API
   const { addBuild } = useContext(BuildContext);
   const { addStatus } = useContext(StatusContext);
 
-  /**
-   * state hook to set and contain the form input values.
-   * pass to each child component to set and return values.
+  /** PROMISES!
+   *    Retrieves need to be established and then added to the promises array
+   */
+  const { materials } = useContext(MaterialContext);
+
+  /** STATE HOOKS
+   *    state hook to set and contain the form input values.
+   *    pass to each child component to set and return values.
    */
   const [buildInputs, setBuildInputs] = useState(null);
   const [buildStatus, setBuildStatus] = useState(null);
@@ -61,12 +66,28 @@ export default function NewBuild() {
         );
       case 1:
         return (
-          <CaseForm currentInputs={buildInputs} setInputs={setBuildInputs} />
+          <CaseForm
+            currentInputs={buildInputs}
+            setInputs={setBuildInputs}
+            materials={materials}
+          />
         );
       case 2:
-        return <SwitchForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
+        return (
+          <SwitchForm
+            currentInputs={buildInputs}
+            setInputs={setBuildInputs}
+            materials={materials}
+          />
+        );
       case 3:
-        return <KeycapForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
+        return (
+          <KeycapForm
+            currentInputs={buildInputs}
+            setInputs={setBuildInputs}
+            materials={materials}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
@@ -94,7 +115,6 @@ export default function NewBuild() {
     addBuild(newBuildObject);
     addStatus(newStatusObject);
   }
-
   return (
     <>
       <Paper className={classes.paper}>

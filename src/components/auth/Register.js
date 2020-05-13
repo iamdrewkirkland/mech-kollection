@@ -28,7 +28,7 @@ const Register = ({ toggleAuth, toggleForm }) => {
   const classes = useStyles();
 
   const existingUserCheck = () => {
-    return fetch(`http://localhost:8088/customers?email=${email.current.value}`)
+    return fetch(`http://localhost:8088/users?email=${email.current.value}`)
       .then((_) => _.json())
       .then((user) => {
         if (user.length) {

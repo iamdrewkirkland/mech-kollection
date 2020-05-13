@@ -14,9 +14,7 @@ import ResultsView from "./testResults/ResultsView";
 import BuildsView from "./builds/BuildsView";
 import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
-import { BuildProvider } from "./builds/BuildDataProvider";
-import { ResultsProvider } from "./testResults/ResultsProvider";
-import { StatusProvider } from "./statuses/StatusProvider";
+
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -85,18 +83,12 @@ const Dashboard = ({ toggleAuth }) => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  <BuildProvider>
-                    <StatusProvider>
-                      <BuildsView />
-                    </StatusProvider>
-                  </BuildProvider>
+                  <BuildsView />
                 </Paper>
               </Grid>
               <Grid item lg={7}>
                 <Paper className={fixedHeightPaper}>
-                  <ResultsProvider>
-                    <ResultsView />
-                  </ResultsProvider>
+                  <ResultsView />
                 </Paper>
               </Grid>
               <Grid item lg={4}>
