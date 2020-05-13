@@ -39,7 +39,6 @@ export default function NewBuild() {
    */
   const [buildInputs, setBuildInputs] = useState(null);
   const [buildStatus, setBuildStatus] = useState(null);
-  const [caseInputs, setCaseInputs] = useState(null);
 
   //separating form inputs into new objects to be posted
   const newBuildObject = { ...buildInputs };
@@ -61,11 +60,13 @@ export default function NewBuild() {
           />
         );
       case 1:
-        return <CaseForm />;
+        return (
+          <CaseForm currentInputs={buildInputs} setInputs={setBuildInputs} />
+        );
       case 2:
-        return <SwitchForm />;
+        return <SwitchForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
       case 3:
-        return <KeycapForm />;
+        return <KeycapForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
       default:
         throw new Error("Unknown step");
     }
@@ -74,7 +75,7 @@ export default function NewBuild() {
   //state hook to check and set the current form step
   const [activeStep, setActiveStep] = useState(0);
 
-  //function for "next" button action. on final step, post all data. 
+  //function for "next" button action. on final step, post all data.
   const handleNext = () => {
     if (activeStep === steps.length) {
       submitBuild();

@@ -4,25 +4,35 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 
-export default function CaseForm() {
+export default function CaseForm({currentInputs, setInputs}) {
   const caseName = useRef();
   const caseColor = useRef();
   const caseDesigner = useRef();
 
-  function handleChange() {}
+  let currentBuildObject = { ...currentInputs };
+
+
+  const handleChange = () => {
+    const newBuildObject = {
+      caseName: caseName.current.value,
+      caseColor: caseColor.current.value,
+      caseDesigner: caseDesigner.current.value,
+    }
+    setInputs(Object.assign(currentBuildObject, newBuildObject));
+  }
 
   return (
     <>
       <Typography variant="h4">Case Info</Typography>
       <Grid container spacing={1}>
         <Grid item>
-          <TextField label="Name" inputRef={caseName} />
+          <TextField label="Name" onChange={handleChange} inputRef={caseName} />
         </Grid>
         <Grid item>
-          <TextField label="Color" inputRef={caseColor} />
+          <TextField label="Color" onChange={handleChange} inputRef={caseColor} />
         </Grid>
         <Grid item>
-          <TextField label="Designer" inputRef={caseDesigner} />
+          <TextField label="Designer" onChange={handleChange} inputRef={caseDesigner} />
         </Grid>
 
         <Grid>
