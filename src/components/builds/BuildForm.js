@@ -5,22 +5,29 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Switch } from "@material-ui/core";
 
-//export build info via context provider
-
-export const BuildForm = ({ currentInputs, setInputs }) => {
-  //state hook to check the inputs for changes
-
+export const BuildForm = ({ status, setStatus, currentInputs, setInputs }) => {
   const buildName = useRef();
-  const isActive = false;
-  const statusName = useRef();
+  const buildWeight = useRef();
+  let isActive = false;
+  const activeStatus = useRef();
 
   let currentBuildObject = { ...currentInputs };
+  let currentStatusObjecct = { ...status };
 
-  const handleChange = (input) => {
+  function toggleActive() {isActive = !isActive}
+
+  const handleChange = () => {
     const newBuildObject = {
-      buildName: input.target.value,
+      userId: parseInt(localStorage.getItem("current_user")),
+      name: buildName.current.value,
+      buildWeight: parseInt(buildWeight.current.value),
+    };
+    const newStatusObject = {
+      isActive: isActive,
+      label: activeStatus.current.value,
     };
     setInputs(Object.assign(currentBuildObject, newBuildObject));
+    setStatus(Object.assign(currentStatusObjecct, newStatusObject));
   };
 
   return (
@@ -30,18 +37,32 @@ export const BuildForm = ({ currentInputs, setInputs }) => {
         <Grid item>
           <TextField
             label="Build Name"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
             inputRef={buildName}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Build Weight (grams)"
+            inputRef={buildWeight}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item>
           <FormControlLabel
             label="Active"
-            control={<Switch onChange={!isActive} />}
+            control={<Switch onChange={()=>{
+              toggleActive()
+              handleChange()
+            }}/>}
           />
         </Grid>
         <Grid item>
-          <TextField label="Active Status" inputRef={statusName} />
+          <TextField
+            label="Label (Home, Work, Display, etc)"
+            onChange={handleChange}
+            inputRef={activeStatus}
+          />
         </Grid>
       </Grid>
     </>

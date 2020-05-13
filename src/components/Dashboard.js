@@ -14,7 +14,8 @@ import ResultsView from "./testResults/ResultsView";
 import BuildsView from "./builds/BuildsView";
 import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
-
+import { BuildProvider } from "./builds/BuildDataProvider";
+import { ResultsProvider } from "./testResults/ResultsProvider";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -47,16 +48,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-const Dashboard = ({toggleAuth}) => {
+const Dashboard = ({ toggleAuth }) => {
   // theme and layout control variables
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   function logout() {
-    localStorage.removeItem("current_user")
-    toggleAuth()
+    localStorage.removeItem("current_user");
+    toggleAuth();
   }
 
   return (
@@ -76,22 +75,25 @@ const Dashboard = ({toggleAuth}) => {
             <ListItem>2</ListItem>
             <ListItem>3</ListItem>
           </List>
-          <Button
-            variant="contained"
-            onClick={logout}
-          >Logout</Button>
+          <Button variant="contained" onClick={logout}>
+            Logout
+          </Button>
         </Drawer>
         <main>
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  <BuildsView />
+                  <BuildProvider>
+                    <BuildsView />
+                  </BuildProvider>
                 </Paper>
               </Grid>
               <Grid item lg={7}>
                 <Paper className={fixedHeightPaper}>
-                  <ResultsView />
+                  <ResultsProvider>
+                    <ResultsView />
+                  </ResultsProvider>
                 </Paper>
               </Grid>
               <Grid item lg={4}>

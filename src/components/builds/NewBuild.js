@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { BuildForm } from "./BuildForm";
 import CaseForm from "./CaseForm";
 import KeycapForm from "./KeycapForm";
@@ -12,7 +12,9 @@ import {
   Step,
   makeStyles,
 } from "@material-ui/core";
+import { BuildContext } from "./BuildDataProvider";
 
+//function to override default styling
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
@@ -23,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
 
 //function that established a new build to be linked to "add build" button
 export default function NewBuild() {
+  //variable to hold styles
+  const classes = useStyles();
+
+  //variable to hold function to post data to API
+  const { addBuild } = useContext(BuildContext);
   //array declaring the name and order of the steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
 
@@ -30,13 +37,25 @@ export default function NewBuild() {
    * state hook to set and contain the form input values.
    * pass to each child component to set and return values.
    */
-  const [buildInputs, setBuildInputs] = useState(null)
+  const [buildInputs, setBuildInputs] = useState(null);
+  const [buildStatus, setBuildStatus] = useState(null);
+  // const [caseInputs, setCaseInputs] = useState(null);
+
+  const newBuildObject = { ...buildInputs };
+  const newStatusObject = { ...buildStatus };
 
   //function to return the content of the corresponding step
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <BuildForm currentInputs={buildInputs} setInputs={setBuildInputs} />;
+        return (
+          <BuildForm
+            currentInputs={buildInputs}
+            setInputs={setBuildInputs}
+            status={buildStatus}
+            setStatus={setBuildStatus}
+          />
+        );
       case 1:
         return <CaseForm />;
       case 2:
@@ -48,22 +67,27 @@ export default function NewBuild() {
     }
   }
 
-  //variable to hold styles
-  const classes = useStyles();
-
   //state hook to check and set the current form step
   const [activeStep, setActiveStep] = useState(0);
 
   //function for "next" button action
   const handleNext = () => {
-    //if active step = steps.length then AddBuild
-    setActiveStep(activeStep + 1);
+    if (activeStep === steps.length) {
+      submitBuild(newBuildObject);
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   //function for "back" button action
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  function submitBuild() {
+    addBuild(newBuildObject);
+    
+  }
 
   return (
     <>
@@ -93,7 +117,14 @@ export default function NewBuild() {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  onClick={() => {
+                    if (activeStep === steps.length - 1) {
+                      submitBuild(newBuildObject);
+                      handleNext();
+                    } else {
+                      handleNext();
+                    }
+                  }}
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>

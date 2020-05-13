@@ -18,9 +18,7 @@ export default function CaseForm() {
         <Grid item>
           <TextField label="Designer" />
         </Grid>
-        <Grid item>
-          <TextField label="Weight (grams)" />
-        </Grid>
+        
         <Grid>
             <InputLabel id="layout">Layout</InputLabel>
             <Select labelId="layout">
