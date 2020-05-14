@@ -12,8 +12,8 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
   const caseDesigner = useRef();
   const caseMaterial = useRef();
   const plateMaterial = useRef();
-  const caseLayout = useRef();
-  const {layouts} = useContext(LayoutContext);
+  const layout = useRef();
+  const { layouts } = useContext(LayoutContext);
 
   function filterMaterials(resource) {
     return materials.filter((material) => material.resource === resource);
@@ -28,6 +28,7 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
       caseColor: caseColor.current.value,
       caseDesigner: caseDesigner.current.value,
       caseMaterialId: caseMaterial.current.value,
+      caseLayoutId: layout.current.value,
     };
     setInputs(Object.assign(currentBuildObject, newBuildObject));
   };
@@ -56,10 +57,12 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
 
         <Grid>
           <InputLabel id="layout">Layout</InputLabel>
-          <Select labelId="layout">
-            <MenuItem>1</MenuItem>
-            <MenuItem>2</MenuItem>
-            <MenuItem>3</MenuItem>
+          <Select labelId="layout" onChange={handleChange} inputRef={layout}>
+            {layouts.map((layout) => (
+              <MenuItem key={layout} value={layout.id}>
+                {layout.name}
+              </MenuItem>
+            ))}
           </Select>
         </Grid>
         <Grid>
