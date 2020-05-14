@@ -43,7 +43,7 @@ export default function SwitchForm({ currentInputs, setInputs }) {
             inputRef={switchType}
           >
             {switchTypes.map((type) => (
-              <MenuItem key={type} value={type.id}>
+              <MenuItem key={type.name} value={type.id}>
                 {type.name}
               </MenuItem>
             ))}

@@ -57,7 +57,7 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
             inputRef={keycapMaterial}
           >
             {filterMaterials("keycap").map((material) => (
-              <MenuItem key={material} value={material.id}>
+              <MenuItem key={material.name} value={material.id}>
                 {material.name}
               </MenuItem>
             ))}

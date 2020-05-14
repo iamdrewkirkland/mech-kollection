@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react"
 */
 export const ResultsContext = React.createContext()
 
-const userId = localStorage.getItem("current_user")
 
 
 /*
@@ -16,7 +15,7 @@ export const ResultsProvider = (props) => {
     const [results, setResults] = useState([])
 
     const getResults = (userId) => {
-        return fetch(`http://localhost:8088/results?userId=${userId}`)
+        return fetch(`http://localhost:8088/results`)
             .then(res => res.json())
             .then(setResults)
     }
@@ -29,7 +28,7 @@ export const ResultsProvider = (props) => {
             },
             body: JSON.stringify(result)
         })
-            .then(getResults(userId))
+            .then(getResults)
     }
 
     /*
@@ -37,7 +36,7 @@ export const ResultsProvider = (props) => {
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
-        getResults(userId)
+        getResults()
     }, [])
 
     useEffect(() => {

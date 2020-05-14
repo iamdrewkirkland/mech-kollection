@@ -23,7 +23,7 @@ export default function BuildList() {
     <>
       <Container className={classes.buildList}>
         {fakeBuilds.map((build) => (
-          <Build key={build}/>
+          <Build />
         ))}
       </Container>
     </>

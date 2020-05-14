@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -13,29 +13,29 @@ import {
 } from "@material-ui/core";
 import { BuildContext } from "../builds/BuildDataProvider";
 
+
 export default function ResultsForm({ setResult }) {
-  const { getBuilds } = useContext(BuildContext);
-  const buildId = useRef();
-  const date = useRef();
-  const wpm = useRef();
-  const website = useRef();
-  const userId = localStorage.getItem("current_user");
+  const buildId = useRef(null);
+  const date = useRef(null);
+  const wpm = useRef(null);
+  const website = useRef("");
+  const [] = useState(false)
   let personalBest = false;
+
+  const {builds} = useContext(BuildContext)
 
   function toggleBest() {
     return (personalBest = !personalBest);
   }
 
-  function userBuilds() {
-    return getBuilds(userId);
-  }
+
 
   const handleChange = () => {
     const newResultObject = {
       buildId: buildId.current.value,
       date: date.current.value,
       wpm: parseInt(wpm.current.value),
-      pb: personalBest.current.value,
+      pb: personalBest,
       website: website.current.value,
     };
     setResult(newResultObject);
@@ -48,8 +48,8 @@ export default function ResultsForm({ setResult }) {
         <Grid>
           <InputLabel id="build">Build</InputLabel>
           <Select labelId="build" onChange={handleChange} inputRef={buildId}>
-            {userBuilds.map((build) => (
-              <MenuItem key={build} value={build.id}>
+            {builds.map((build) => (
+              <MenuItem key={build.name} value={build.id}>
                 {build.name}
               </MenuItem>
             ))}
@@ -77,6 +77,7 @@ export default function ResultsForm({ setResult }) {
               <Switch
                 onChange={() => {
                   toggleBest();
+                  debugger
                   handleChange();
                 }}
               />

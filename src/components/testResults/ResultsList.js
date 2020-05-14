@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Table,
   TableHead,
@@ -7,17 +7,14 @@ import {
   TableBody,
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
+import { BuildContext } from "../builds/BuildDataProvider";
+import StarRoundedIcon from '@material-ui/icons/StarRounded';
 
-const { results } = useContext(ResultsContext);
-
-
-// Grab results where userId matches the current user
-
-// Put results into row format
-
-// Map rows into table format
 
 export default function ResultsList() {
+  const { results } = useContext(ResultsContext);
+  const { builds } = useContext(BuildContext);
+
   return (
     <>
       <Table>
@@ -31,15 +28,17 @@ export default function ResultsList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {results.map((result) => (
-            <TableRow key={result}>
+          {results.map((result) => {
+            const matchingBuild = builds.find(
+              (build) => (build.id === result.buildId)
+            ) || {};
+            return (<TableRow>
               <TableCell>{result.date}</TableCell>
-          <TableCell>{result.build}</TableCell> 
-          <TableCell>{result.wpm}</TableCell>
-          <TableCell>{result.pb}</TableCell>
-          <TableCell>{result.website}</TableCell>
-            </TableRow>
-          ))}
+              <TableCell>{matchingBuild.name}</TableCell>
+              <TableCell>{result.wpm}</TableCell>
+              <TableCell>{result.pb ? <StarRoundedIcon /> : "-"}</TableCell>
+              <TableCell>{result.website}</TableCell>
+            </TableRow>)})}
         </TableBody>
       </Table>
     </>

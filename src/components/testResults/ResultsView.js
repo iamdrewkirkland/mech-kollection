@@ -6,20 +6,32 @@ import { ResultsContext } from "./ResultsProvider";
 
 
 export default function ResultsView() {
-  const {addResult} = useContext(ResultsContext)
+  const { addResults } = useContext(ResultsContext);
   const [showForm, toggleShowForm] = useState(false);
   const [result, setResult] = useState(null);
 
+
+function submitClose() {
+  addResults(result);
+  toggleShowForm(!showForm);
+}
+
   return (
-      <>
+    <>
       {showForm ? (
-        <ResultsForm toggleForm={toggleShowForm} setResult={setResult} />
+        <ResultsForm toggleForm={toggleShowForm}  setResult={setResult} />
       ) : (
-        <ResultsList toggleForm={toggleShowForm} />
+        <ResultsList toggleForm={toggleShowForm}  />
       )}
-      <Button variant="contained" color="primary" onClick={()=>{
-          showForm ?(addResult(result)):(toggleShowForm(!showForm))
-      }}>{showForm ? ('Back') : ('Add Results')}</Button>
-      </>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          showForm ? submitClose() : toggleShowForm(!showForm);
+        }}
+      >
+        {showForm ? "Back" : "Add Results"}
+      </Button>
+    </>
   );
 }

@@ -59,7 +59,7 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
           <InputLabel id="layout">Layout</InputLabel>
           <Select labelId="layout" onChange={handleChange} inputRef={layout}>
             {layouts.map((layout) => (
-              <MenuItem key={layout} value={layout.id}>
+              <MenuItem key={layout.name} value={layout.id}>
                 {layout.name}
               </MenuItem>
             ))}
@@ -73,7 +73,7 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
             inputRef={caseMaterial}
           >
             {filterMaterials("case").map((material) => (
-              <MenuItem key={material} value={material.id}>
+              <MenuItem key={material.name} value={material.id}>
                 {material.name}
               </MenuItem>
             ))}
@@ -87,7 +87,7 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
             inputRef={plateMaterial}
           >
             {filterMaterials("plate").map((material) => (
-              <MenuItem key={material} value={material.id}>
+              <MenuItem key={material.name} value={material.id}>
                 {material.name}
               </MenuItem>
             ))}

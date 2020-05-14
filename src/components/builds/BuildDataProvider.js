@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react"
 */
 export const BuildContext = React.createContext()
 
-const userId = localStorage.getItem("current_user")
 
 /*
  This component establishes what data can be used.
@@ -14,8 +13,8 @@ const userId = localStorage.getItem("current_user")
 export const BuildProvider = (props) => {
     const [builds, setBuilds] = useState([])
 
-    const getBuilds = (userId) => {
-        return fetch(`http://localhost:8088/builds?userId=${userId}`)
+    const getBuilds = () => {
+        return fetch(`http://localhost:8088/builds`)
             .then(res => res.json())
             .then(setBuilds)
     }
@@ -28,7 +27,7 @@ export const BuildProvider = (props) => {
             },
             body: JSON.stringify(build)
         })
-            .then(getBuilds(userId))
+            .then(getBuilds)
     }
 
     
@@ -38,7 +37,7 @@ export const BuildProvider = (props) => {
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
-        getBuilds(userId)
+        getBuilds()
     }, [])
 
     useEffect(() => {

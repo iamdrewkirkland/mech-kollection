@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react"
 */
 export const StatusContext = React.createContext()
 
-const userId = localStorage.getItem("current_user")
 
 
 /*
@@ -15,8 +14,8 @@ const userId = localStorage.getItem("current_user")
 export const StatusProvider = (props) => {
     const [statuses, setStatuses] = useState([])
 
-    const getStatus = (userId) => {
-        return fetch(`http://localhost:8088/statuses?userId=${userId}`)
+    const getStatus = () => {
+        return fetch(`http://localhost:8088/statuses`)
             .then(res => res.json())
             .then(setStatuses)
     }
@@ -29,7 +28,7 @@ export const StatusProvider = (props) => {
             },
             body: JSON.stringify(status)
         })
-            .then(getStatus(userId))
+            .then(getStatus)
     }
 
     /*
@@ -37,7 +36,7 @@ export const StatusProvider = (props) => {
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
-        getStatus(userId)
+        getStatus()
     }, [])
 
     useEffect(() => {
