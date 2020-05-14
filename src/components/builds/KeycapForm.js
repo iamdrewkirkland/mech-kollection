@@ -14,6 +14,7 @@ import {
 export default function KeycapForm({ currentInputs, setInputs, materials }) {
   const keycapName = useRef();
   const keycapProfile = useRef();
+  const keycapMaterial = useRef();
 
   let currentBuildObject = { ...currentInputs };
 
@@ -25,6 +26,7 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
     const newBuildObject = {
       keycapName: keycapName.current.value,
       keycapProfile: keycapProfile.current.value,
+      keycapMaterialId: keycapMaterial.current.value
     };
     setInputs(Object.assign(currentBuildObject, newBuildObject));
   };
@@ -48,11 +50,17 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
           />
         </Grid>
         <Grid>
-          <InputLabel id="keycapMaterial">Material</InputLabel>
-          <Select labelId="keycapMaterial">
-            <MenuItem>1</MenuItem>
-            <MenuItem>2</MenuItem>
-            <MenuItem>3</MenuItem>
+          <InputLabel id="keycapMaterial"> Keycap Material</InputLabel>
+          <Select
+            labelId="keycapMaterial"
+            onChange={handleChange}
+            inputRef={keycapMaterial}
+          >
+            {filterMaterials("keycap").map((material) => (
+              <MenuItem key={material} value={material.id}>
+                {material.name}
+              </MenuItem>
+            ))}
           </Select>
         </Grid>
         <Grid>

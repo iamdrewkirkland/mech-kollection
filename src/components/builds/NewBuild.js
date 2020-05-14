@@ -97,7 +97,7 @@ export default function NewBuild() {
   const [activeStep, setActiveStep] = useState(0);
 
   //function for "next" button action. on final step, post all data.
-  const handleNext = () => {
+  function handleNext() {
     if (activeStep === steps.length) {
       submitBuild();
     } else {
@@ -106,7 +106,7 @@ export default function NewBuild() {
   };
 
   //function for "back" button action
-  const handleBack = () => {
+  function handleBack() {
     setActiveStep(activeStep - 1);
   };
 
