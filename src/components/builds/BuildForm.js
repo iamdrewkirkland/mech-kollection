@@ -11,12 +11,12 @@ export default function BuildForm({ status, setStatus, currentInputs, setInputs 
   let isActive = false;
   const activeStatus = useRef();
 
-  let currentBuildObject = { ...currentInputs };
-  let currentStatusObjecct = { ...status };
+  const currentBuildObject = { ...currentInputs };
+  const currentStatusObjecct = { ...status };
 
   function toggleActive() {isActive = !isActive}
 
-  const handleChange = () => {
+ function handleChange() {
     const newBuildObject = {
       userId: parseInt(localStorage.getItem("current_user")),
       name: buildName.current.value,

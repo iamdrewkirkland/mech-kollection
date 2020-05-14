@@ -5,6 +5,7 @@ import { BuildProvider } from "./builds/BuildDataProvider";
 import { ResultsProvider } from "./testResults/ResultsProvider";
 import { StatusProvider } from "./statuses/StatusProvider";
 import { MaterialProvider } from "./materials/MaterialProvider";
+import { LayoutProvider } from "./layouts/LayoutProvider";
 
 export default () => {
   const [isAuth, updateAuth] = useState(false);
@@ -15,7 +16,9 @@ export default () => {
       <StatusProvider>
         <ResultsProvider>
           <MaterialProvider>
-            <Dashboard toggleAuth={toggleAuth} />
+            <LayoutProvider>
+              <Dashboard toggleAuth={toggleAuth} />
+            </LayoutProvider>
           </MaterialProvider>
         </ResultsProvider>
       </StatusProvider>

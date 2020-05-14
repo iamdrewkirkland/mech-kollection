@@ -11,11 +11,15 @@ import {
   FormControl,
 } from "@material-ui/core";
 
-export default function KeycapForm({ currentInputs, setInputs }) {
+export default function KeycapForm({ currentInputs, setInputs, materials }) {
   const keycapName = useRef();
   const keycapProfile = useRef();
 
   let currentBuildObject = { ...currentInputs };
+
+  function filterMaterials(resource) {
+    return materials.filter((material) => material.resource === resource);
+  }
 
   const handleChange = () => {
     const newBuildObject = {

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BuildList = () => {
+export default function BuildList() {
   const classes = useStyles();
   const fakeBuilds = [1, 2, 3];
   return (
@@ -29,5 +29,3 @@ const BuildList = () => {
     </>
   );
 };
-
-export default BuildList;

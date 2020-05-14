@@ -7,6 +7,14 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import StaticHead from "./auth/StaticHead";
 
+/**
+ *  Component: LoginState
+ *      Reponsible for rendering either auth/SignIn.js or auth/Register.js component.
+ *      Components toggleAuth (AuthControl.js) on succesful submission of either login or register form. 
+ *      
+ *  Author: Drew Kirkland
+ */
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
