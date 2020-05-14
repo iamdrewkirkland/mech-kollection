@@ -6,19 +6,22 @@ import React, { useState, useEffect } from "react"
 */
 export const StatusContext = React.createContext()
 
+const userId = localStorage.getItem("current_user")
+
+
 /*
  This component establishes what data can be used.
  */
 export const StatusProvider = (props) => {
-    const [status, setStatus] = useState([])
+    const [statuses, setStatuses] = useState([])
 
-    const getStatus = () => {
-        return fetch("http://localhost:8088/statuses")
+    const getStatus = (userId) => {
+        return fetch(`http://localhost:8088/statuses?userId=${userId}`)
             .then(res => res.json())
-            .then(setStatus)
+            .then(setStatuses)
     }
 
-    const addStatus = status => {
+    const addStatus = (status) => {
         return fetch("http://localhost:8088/statuses", {
             method: "POST",
             headers: {
@@ -26,7 +29,7 @@ export const StatusProvider = (props) => {
             },
             body: JSON.stringify(status)
         })
-            .then(getStatus)
+            .then(getStatus(userId))
     }
 
     /*
@@ -34,16 +37,16 @@ export const StatusProvider = (props) => {
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
-        getStatus()
+        getStatus(userId)
     }, [])
 
     useEffect(() => {
         console.log("****  STATUS APPLICATION STATE CHANGED  ****")
-    }, [status])
+    }, [statuses])
 
     return (
         <StatusContext.Provider value={{
-            status, addStatus
+            statuses, addStatus, getStatus
         }}>
             {props.children}
         </StatusContext.Provider>

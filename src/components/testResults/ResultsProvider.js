@@ -6,19 +6,22 @@ import React, { useState, useEffect } from "react"
 */
 export const ResultsContext = React.createContext()
 
+const userId = localStorage.getItem("current_user")
+
+
 /*
  This component establishes what data can be used.
  */
 export const ResultsProvider = (props) => {
     const [results, setResults] = useState([])
 
-    const getResults = () => {
-        return fetch("http://localhost:8088/results")
+    const getResults = (userId) => {
+        return fetch(`http://localhost:8088/results?userId=${userId}`)
             .then(res => res.json())
             .then(setResults)
     }
 
-    const addResults = result => {
+    const addResults = (result) => {
         return fetch("http://localhost:8088/results", {
             method: "POST",
             headers: {
@@ -26,7 +29,7 @@ export const ResultsProvider = (props) => {
             },
             body: JSON.stringify(result)
         })
-            .then(getResults)
+            .then(getResults(userId))
     }
 
     /*
@@ -34,7 +37,7 @@ export const ResultsProvider = (props) => {
         an empty array is the second argument to avoid infinite loop.
     */
     useEffect(() => {
-        getResults()
+        getResults(userId)
     }, [])
 
     useEffect(() => {

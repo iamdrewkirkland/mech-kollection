@@ -5,7 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Switch } from "@material-ui/core";
 
-export default function BuildForm({ status, setStatus, currentInputs, setInputs }) {
+export default function BuildForm({
+  status,
+  setStatus,
+  currentInputs,
+  setInputs,
+}) {
   const buildName = useRef();
   const buildWeight = useRef();
   let isActive = false;
@@ -14,9 +19,12 @@ export default function BuildForm({ status, setStatus, currentInputs, setInputs 
   const currentBuildObject = { ...currentInputs };
   const currentStatusObjecct = { ...status };
 
-  function toggleActive() {isActive = !isActive}
+  function toggleActive() {
+    return (isActive = !isActive);
+  }
 
- function handleChange() {
+  function handleChange(e) {
+    e.preventDefault();
     const newBuildObject = {
       userId: parseInt(localStorage.getItem("current_user")),
       name: buildName.current.value,
@@ -28,7 +36,7 @@ export default function BuildForm({ status, setStatus, currentInputs, setInputs 
     };
     setInputs(Object.assign(currentBuildObject, newBuildObject));
     setStatus(Object.assign(currentStatusObjecct, newStatusObject));
-  };
+  }
 
   return (
     <>
@@ -51,10 +59,14 @@ export default function BuildForm({ status, setStatus, currentInputs, setInputs 
         <Grid item>
           <FormControlLabel
             label="Active"
-            control={<Switch onChange={()=>{
-              toggleActive()
-              handleChange()
-            }}/>}
+            control={
+              <Switch
+                onChange={() => {
+                  toggleActive();
+                  handleChange();
+                }}
+              />
+            }
           />
         </Grid>
         <Grid item>
@@ -67,4 +79,4 @@ export default function BuildForm({ status, setStatus, currentInputs, setInputs 
       </Grid>
     </>
   );
-};
+}

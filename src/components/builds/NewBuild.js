@@ -32,10 +32,6 @@ export default function NewBuild() {
 
   const { addBuild } = useContext(BuildContext);
   const { addStatus } = useContext(StatusContext);
-
-  /** PROMISES!
-   *    Retrieves need to be established and then added to the promises array
-   */
   const { materials } = useContext(MaterialContext);
 
   /** STATE HOOKS
@@ -49,10 +45,10 @@ export default function NewBuild() {
   const newBuildObject = { ...buildInputs };
   const newStatusObject = { ...buildStatus };
 
-  //array declaring the name and order of the steps
+  //array declaring the name and order of the form steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
 
-  //function to return the content of the corresponding step
+  //function to return the content of the corresponding form step
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -96,19 +92,19 @@ export default function NewBuild() {
   //state hook to check and set the current form step
   const [activeStep, setActiveStep] = useState(0);
 
-  //function for "next" button action. on final step, post all data.
+  //function for "next" button action. on final step, submit newBuild for post.
   function handleNext() {
     if (activeStep === steps.length) {
       submitBuild();
     } else {
       setActiveStep(activeStep + 1);
     }
-  };
+  }
 
   //function for "back" button action
   function handleBack() {
     setActiveStep(activeStep - 1);
-  };
+  }
 
   //function that designates all build data to appropriate resource
   function submitBuild() {
