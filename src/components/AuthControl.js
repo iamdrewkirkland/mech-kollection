@@ -7,6 +7,8 @@ import { StatusProvider } from "./statuses/StatusProvider";
 import { MaterialProvider } from "./materials/MaterialProvider";
 import { LayoutProvider } from "./layouts/LayoutProvider";
 import { SwitchTypeProvider } from "./switches/SwitchTypeProvider";
+import { FriendProvider } from "./friends/FriendProvider";
+import { UserProvider } from "./users/UserProvider";
 
 export default () => {
   const [isAuth, updateAuth] = useState(false);
@@ -19,7 +21,11 @@ export default () => {
           <MaterialProvider>
             <LayoutProvider>
               <SwitchTypeProvider>
-                <Dashboard toggleAuth={toggleAuth} />
+                <FriendProvider>
+                  <UserProvider>
+                    <Dashboard toggleAuth={toggleAuth} />
+                  </UserProvider>
+                </FriendProvider>
               </SwitchTypeProvider>
             </LayoutProvider>
           </MaterialProvider>

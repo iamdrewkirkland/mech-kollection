@@ -60,13 +60,13 @@ const Dashboard = ({ toggleAuth }) => {
   return (
     <>
       <div className={classes.root}>
-        {/* <AppBar className={classes.appBar}>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <Typography component="h1" variant="h6">
               mech köllection
             </Typography>
           </Toolbar>
-        </AppBar> */}
+        </AppBar>
         <div className={classes.appBarSpacer} />
         <Drawer variant="permanent" className={classes.drawer}>
           <List>

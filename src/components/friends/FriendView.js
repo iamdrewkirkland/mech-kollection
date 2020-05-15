@@ -6,12 +6,14 @@ import FriendList from "./FriendList";
 
 export default function FriendsView() {
   const [showForm, toggleShowForm] = useState(false);
+  const [myFriends, setMyFriends] = useState(null)
+
   return (
     <>
       {showForm ? (
-        <FriendForm />
+        <FriendForm friends={myFriends} setFriends={setMyFriends} toggleForm={toggleShowForm} />
       ) : (
-        <FriendList />
+        <FriendList friends={myFriends} />
       )}
       
       <Button variant="contained" color="primary" onClick={()=>{

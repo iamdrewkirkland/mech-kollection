@@ -2,16 +2,19 @@ import React from "react";
 import { Avatar, Typography } from "@material-ui/core";
 import PeopleIcon from "@material-ui/icons/People";
 
-const Friend = () => {
+export default function Friend({ friend }) {
+  const first = friend.firstName
+  const last = friend.lastName
+  const username = friend.username
+
   return (
     <>
-      <Avatar variant={"rounded"} >
+      <Avatar variant={"rounded"}>
         <PeopleIcon />
       </Avatar>
 
-      <Typography>FirstName LastName</Typography>
+  <Typography>{first} {last}</Typography>
+  <Typography>{username}</Typography>
     </>
   );
-};
-
-export default Friend;
+}
