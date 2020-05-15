@@ -10,27 +10,27 @@ import {
   InputLabel,
   MenuItem,
   Switch,
+  Button,
 } from "@material-ui/core";
 import { BuildContext } from "../builds/BuildDataProvider";
+import { ResultsContext } from "./ResultsProvider";
 
 
-export default function ResultsForm({ setResult }) {
+export default function ResultsForm({ result, toggleForm, setResult }) {
   const buildId = useRef(null);
   const date = useRef(null);
   const wpm = useRef(null);
   const website = useRef("");
-  const [] = useState(false)
-  let personalBest = false;
+  const [personalBest, setPersonalBest] = useState(false);
 
-  const {builds} = useContext(BuildContext)
+  const { addResults } = useContext(ResultsContext);
+  const { builds } = useContext(BuildContext);
 
   function toggleBest() {
-    return (personalBest = !personalBest);
+    setPersonalBest(!personalBest);
   }
 
-
-
-  const handleChange = () => {
+  function handleChange() {
     const newResultObject = {
       buildId: buildId.current.value,
       date: date.current.value,
@@ -40,7 +40,10 @@ export default function ResultsForm({ setResult }) {
     };
     setResult(newResultObject);
   };
-
+  function submitClose() {
+    addResults(result)
+    toggleForm();
+  }
   return (
     <>
       <Typography variant="h4">Results Info</Typography>
@@ -58,7 +61,7 @@ export default function ResultsForm({ setResult }) {
         <Grid>
           <TextField
             id="datetime-local"
-            label="Test Time"
+            label="Date and Time"
             type="datetime-local"
             inputRef={date}
             onChange={handleChange}
@@ -77,7 +80,6 @@ export default function ResultsForm({ setResult }) {
               <Switch
                 onChange={() => {
                   toggleBest();
-                  debugger
                   handleChange();
                 }}
               />
@@ -103,6 +105,10 @@ export default function ResultsForm({ setResult }) {
             />
           </FormControl>
         </Grid>
+        <Button
+        variant="contained"
+        color="primary"
+        onClick={submitClose}>ADD RESULT</Button>
       </Grid>
     </>
   );
