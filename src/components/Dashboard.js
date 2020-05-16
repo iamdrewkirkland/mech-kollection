@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import clsx from "clsx";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -14,7 +14,8 @@ import ResultsView from "./testResults/ResultsView";
 import BuildsView from "./builds/BuildsView";
 import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
-
+import { BuildContext } from "./builds/BuildDataProvider";
+import { useEffect } from "react";
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -51,6 +52,15 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
   // theme and layout control variables
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const { builds } = useContext(BuildContext);
+
+  const [myBuilds, setMyBuilds] = useState([]);
+  
+
+  useEffect(() => {
+    const matchingBuilds = builds.filter((build) => build.id === currentUserId) || [];
+    setMyBuilds(matchingBuilds);
+  }, [currentUserId, builds]);
 
   function logout() {
     localStorage.removeItem("current_user");
@@ -70,9 +80,9 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
         <div className={classes.appBarSpacer} />
         <Drawer variant="permanent" className={classes.drawer}>
           <List>
-            <ListItem>1</ListItem>
-            <ListItem>2</ListItem>
-            <ListItem>3</ListItem>
+            <ListItem>Build Collection</ListItem>
+            <ListItem>Test Results</ListItem>
+            <ListItem>Friends</ListItem>
           </List>
           <Button variant="contained" onClick={logout}>
             Logout
@@ -83,12 +93,18 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
-                  <BuildsView />
+                  <BuildsView
+                    myBuilds={myBuilds}
+                    currentUserId={currentUserId}
+                  />
                 </Paper>
               </Grid>
               <Grid item lg={7}>
                 <Paper className={fixedHeightPaper}>
-                  <ResultsView />
+                  <ResultsView
+                    myBuilds={myBuilds}
+                    currentUserId={currentUserId}
+                  />
                 </Paper>
               </Grid>
               <Grid item lg={4}>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Table,
   TableHead,
@@ -7,13 +7,29 @@ import {
   TableBody,
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
-import { BuildContext } from "../builds/BuildDataProvider";
-import StarRoundedIcon from '@material-ui/icons/StarRounded';
+import { useState } from "react";
+import Result from "./Result";
 
-
-export default function ResultsList() {
+export default function ResultsList({ currentUserId, myBuilds }) {
   const { results } = useContext(ResultsContext);
-  const { builds } = useContext(BuildContext);
+
+  console.log(myBuilds);
+
+  const [myResults, setMyResults] = useState([]);
+
+  // const [matchingBuild, setMatchingBuild] = useState({});
+
+  useEffect(() => {
+    const myFilteredResults = results.filter((result) => {
+      const matchingBuildObject =
+        myBuilds.find((myBuild) => result.buildId === myBuild.id) || {};
+      debugger;
+      // setMatchingBuild(matchingBuildObject)
+      return matchingBuildObject ;
+    });
+    setMyResults(myFilteredResults);
+    debugger;
+  }, [currentUserId, myBuilds, results]);
 
   return (
     <>
@@ -28,17 +44,11 @@ export default function ResultsList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {results.map((result) => {
-            const matchingBuild = builds.find(
-              (build) => (build.id === result.buildId)
-            ) || {};
-            return (<TableRow>
-              <TableCell>{result.date}</TableCell>
-              <TableCell>{matchingBuild.name}</TableCell>
-              <TableCell>{result.wpm}</TableCell>
-              <TableCell>{result.pb ? <StarRoundedIcon /> : "-"}</TableCell>
-              <TableCell>{result.website}</TableCell>
-            </TableRow>)})}
+          {myResults.map((result) => {
+            const resultBuild=myBuilds.find((build) => build.id === result.buildId) || {};
+            debugger;
+            return <Result result={result} matchingBuild={resultBuild} />;
+          }) || []}
         </TableBody>
       </Table>
     </>

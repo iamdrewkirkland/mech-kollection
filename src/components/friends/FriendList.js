@@ -16,7 +16,7 @@ export default function FriendsList({ currentUserId }) {
   // },[])
 
   useEffect(() => {
-    let myFilteredFriends = friends.filter((friend) => {
+    const myFilteredFriends = friends.filter((friend) => {
       return friend.userId === currentUserId;
     });
 

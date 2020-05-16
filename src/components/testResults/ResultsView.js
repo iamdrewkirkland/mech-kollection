@@ -3,27 +3,32 @@ import { Button } from "@material-ui/core";
 import ResultsList from "./ResultsList";
 import ResultsForm from "./ResultsForm";
 
-
-export default function ResultsView() {
- 
+export default function ResultsView({ currentUserId, myBuilds }) {
   const [showForm, toggleShowForm] = useState(false);
   const [result, setResult] = useState(null);
 
-function toggleForm(){toggleShowForm(!showForm)}
-
+  function toggleForm() {
+    toggleShowForm(!showForm);
+  }
 
   return (
     <>
       {showForm ? (
-        <ResultsForm toggleForm={toggleForm} result={result} setResult={setResult} />
+        <ResultsForm
+          toggleForm={toggleForm}
+          result={result}
+          setResult={setResult}
+          myBuilds={myBuilds}
+
+        />
       ) : (
-        <ResultsList toggleForm={toggleForm}  />
+        <ResultsList
+          myBuilds={myBuilds}
+          toggleForm={toggleForm}
+          currentUserId={currentUserId}
+        />
       )}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={toggleForm}
-      >
+      <Button variant="contained" color="primary" onClick={toggleForm}>
         {showForm ? "Back" : "Add Results"}
       </Button>
     </>

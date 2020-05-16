@@ -16,7 +16,7 @@ import { BuildContext } from "../builds/BuildDataProvider";
 import { ResultsContext } from "./ResultsProvider";
 
 
-export default function ResultsForm({ result, toggleForm, setResult }) {
+export default function ResultsForm({ result, toggleForm, setResult, myBuilds }) {
   const buildId = useRef(null);
   const date = useRef(null);
   const wpm = useRef(null);
@@ -51,7 +51,7 @@ export default function ResultsForm({ result, toggleForm, setResult }) {
         <Grid>
           <InputLabel id="build">Build</InputLabel>
           <Select labelId="build" onChange={handleChange} inputRef={buildId}>
-            {builds.map((build) => (
+            {myBuilds.map((build) => (
               <MenuItem key={build.name} value={build.id}>
                 {build.name}
               </MenuItem>
