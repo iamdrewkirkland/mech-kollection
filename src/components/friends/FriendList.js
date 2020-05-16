@@ -4,22 +4,32 @@ import { Container } from "@material-ui/core";
 import { FriendContext } from "./FriendProvider";
 import { UserContext } from "../users/UserProvider";
 
-export default function FriendsList() {
+export default function FriendsList({ currentUserId }) {
   const { friends } = useContext(FriendContext);
   const { users } = useContext(UserContext);
-  const userId = localStorage.getItem("current_user");
-  
-  // gets all relationships were friends.userId = userId
-  const myFriends = friends.filter((friend) => friend.userId === userId);
-  // get the corresponding friend name where relationship.userId === users.id
 
+  const [myFriends, setMyFriends] = useState([]);
+  // const [userId, setUserId] = useState(null);
 
+  // useEffect(()=>{
+  //   setMyFriends()
+  // },[])
 
-  return <Container>{myFriends.map(rel => {
-    const friendDetail = users.find(user => user.id === rel.following) || {};
-    return <Friend friend={friendDetail} />;
-  })}</Container>;
+  useEffect(() => {
+    let myFilteredFriends = friends.filter((friend) => {
+      return friend.userId === currentUserId;
+    });
+
+    setMyFriends(myFilteredFriends);
+  }, [currentUserId, friends]);
+
+  return (
+    <Container>
+      {myFriends.map((friend) => {
+        const friendDetail =
+          users.find((user) => user.id === friend.following) || {};
+        return <Friend friend={friendDetail} />;
+      })}
+    </Container>
+  );
 }
-
-
-

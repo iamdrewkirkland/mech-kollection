@@ -6,32 +6,34 @@ import { Button } from "@material-ui/core";
 import { FriendContext } from "./FriendProvider";
 import { UserContext } from "../users/UserProvider";
 
-export default function FriendForm({ myFriends, setMyFriends, toggleForm }) {
+export default function FriendForm({ toggleForm, currentUserId }) {
   const { addFriend } = useContext(FriendContext);
   const { users } = useContext(UserContext);
-  const userId = parseInt(localStorage.getItem("current_user"));
   const searchTerm = useRef("");
 
-  const [foundUserId, setFoundUser] = useState(null);
+  const [foundUserObject, setFoundUserObject] = useState(null);
 
   function search() {
-    const foundUser1 =
+    const foundUser =
       users.find((user) => user.username === searchTerm.current.value) || {};
-      setFoundUser(foundUser1.id);
-      debugger
-      
+    setFoundUserObject(foundUser);
+  }
+
+  function confirm() {
+    alert(
+      `Are you sure you want to add ${foundUserObject.username} as a friend?`
+    );
   }
 
   function submitClose() {
-    debugger
+    const newFriend = {
+      userId: currentUserId,
+      following: foundUserObject.id,
+    };
+    confirm();
     addFriend(newFriend);
     toggleForm();
   }
-
-  const newFriend = {
-    userId: userId,
-    following: foundUserId
-  };
 
   return (
     <>

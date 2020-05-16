@@ -4,22 +4,22 @@ import FriendForm from "./FriendForm";
 import FriendList from "./FriendList";
 
 
-export default function FriendsView() {
+export default function FriendsView({currentUserId}) {
   const [showForm, toggleShowForm] = useState(false);
-  const [myFriends, setMyFriends] = useState(null)
 
   return (
     <>
-      {showForm ? (
-        <FriendForm friends={myFriends} setFriends={setMyFriends} toggleForm={toggleShowForm} />
-      ) : (
-        <FriendList friends={myFriends} />
-      )}
-      
-      <Button variant="contained" color="primary" onClick={()=>{
-          toggleShowForm(!showForm)
-      }}>{showForm ? ('View Friends') : ('Add Friend')}</Button>
-      
+      {showForm ? <FriendForm toggleForm={toggleShowForm} currentUserId={currentUserId} /> : <FriendList currentUserId={currentUserId} />}
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          toggleShowForm(!showForm);
+        }}
+      >
+        {showForm ? "View Friends" : "Add Friend"}
+      </Button>
     </>
   );
 }

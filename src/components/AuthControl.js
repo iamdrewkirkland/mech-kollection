@@ -14,7 +14,8 @@ export default () => {
   const [isAuth, updateAuth] = useState(false);
   const toggleAuth = () => updateAuth(!isAuth);
 
-  return localStorage.getItem("current_user") ? (
+  const currentUserId = parseInt(localStorage.getItem("current_user"))
+  return currentUserId ? (
     <BuildProvider>
       <StatusProvider>
         <ResultsProvider>
@@ -23,7 +24,7 @@ export default () => {
               <SwitchTypeProvider>
                 <FriendProvider>
                   <UserProvider>
-                    <Dashboard toggleAuth={toggleAuth} />
+                    <Dashboard toggleAuth={toggleAuth} currentUserId={currentUserId} />
                   </UserProvider>
                 </FriendProvider>
               </SwitchTypeProvider>

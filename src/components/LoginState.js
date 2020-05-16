@@ -1,5 +1,5 @@
 // component resposible for checking and controlling the application state.
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SignIn from "./auth/SignIn";
 import Register from "./auth/Register";
 import Container from "@material-ui/core/Container";

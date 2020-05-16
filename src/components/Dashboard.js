@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ toggleAuth }) => {
+const Dashboard = ({ toggleAuth, currentUserId }) => {
   // theme and layout control variables
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -93,7 +93,7 @@ const Dashboard = ({ toggleAuth }) => {
               </Grid>
               <Grid item lg={4}>
                 <Paper className={fixedHeightPaper}>
-                  <FriendsView />
+                  <FriendsView currentUserId={currentUserId} />
                 </Paper>
               </Grid>
             </Grid>
