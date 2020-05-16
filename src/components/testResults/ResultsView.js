@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@material-ui/core";
-import ResultsList from "./ResultsList";
-import ResultsForm from "./ResultsForm";
+import { ResultsList } from "./ResultsList";
+import { ResultsForm } from "./ResultsForm";
 
-export default function ResultsView({ currentUserId, myBuilds }) {
+export const ResultsView = React.memo(({ currentUserId, myBuilds }) => {
   const [showForm, toggleShowForm] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -19,7 +19,6 @@ export default function ResultsView({ currentUserId, myBuilds }) {
           result={result}
           setResult={setResult}
           myBuilds={myBuilds}
-
         />
       ) : (
         <ResultsList
@@ -33,4 +32,4 @@ export default function ResultsView({ currentUserId, myBuilds }) {
       </Button>
     </>
   );
-}
+});

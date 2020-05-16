@@ -9,11 +9,7 @@ export default function FriendsList({ currentUserId }) {
   const { users } = useContext(UserContext);
 
   const [myFriends, setMyFriends] = useState([]);
-  // const [userId, setUserId] = useState(null);
-
-  // useEffect(()=>{
-  //   setMyFriends()
-  // },[])
+ 
 
   useEffect(() => {
     const myFilteredFriends = friends.filter((friend) => {

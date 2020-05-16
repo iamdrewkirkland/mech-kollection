@@ -12,11 +12,10 @@ import {
   Switch,
   Button,
 } from "@material-ui/core";
-import { BuildContext } from "../builds/BuildDataProvider";
 import { ResultsContext } from "./ResultsProvider";
 
 
-export default function ResultsForm({ result, toggleForm, setResult, myBuilds }) {
+export const ResultsForm = React.memo(({ result, toggleForm, setResult, myBuilds }) => {
   const buildId = useRef(null);
   const date = useRef(null);
   const wpm = useRef(null);
@@ -24,7 +23,6 @@ export default function ResultsForm({ result, toggleForm, setResult, myBuilds })
   const [personalBest, setPersonalBest] = useState(false);
 
   const { addResults } = useContext(ResultsContext);
-  const { builds } = useContext(BuildContext);
 
   function toggleBest() {
     setPersonalBest(!personalBest);
@@ -112,4 +110,4 @@ export default function ResultsForm({ result, toggleForm, setResult, myBuilds })
       </Grid>
     </>
   );
-}
+})

@@ -23,8 +23,7 @@ export default function BuildForm({
     return (isActive = !isActive);
   }
 
-  function handleChange(e) {
-    e.preventDefault();
+  function handleChange() {
     const newBuildObject = {
       userId: parseInt(localStorage.getItem("current_user")),
       name: buildName.current.value,
