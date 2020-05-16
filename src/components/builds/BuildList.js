@@ -16,16 +16,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const BuildList = React.memo(({ myBuilds }) => {
-  const classes = useStyles();
+export const BuildList = React.memo(
+  ({ myBuilds, materials, layouts, switchTypes }) => {
+    const classes = useStyles();
 
-  return (
-    <>
-      <Container className={classes.buildList}>
-        {myBuilds.map((build) => (
-          <Build key={build.name} build={build} />
-        ))}
-      </Container>
-    </>
-  );
-});
+    return (
+      <>
+        <Container className={classes.buildList}>
+          {myBuilds.map((build) => (
+            <Build
+              key={build.name}
+              build={build}
+              materials={materials}
+              layouts={layouts}
+              switchTypes={switchTypes}
+            />
+          ))}
+        </Container>
+      </>
+    );
+  }
+);

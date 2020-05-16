@@ -24,30 +24,37 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-const Build = ({ build }) => {
+const Build = ({ build, layouts, materials, switchTypes }) => {
   const classes = useStyles();
   let propId = null;
 
   function getNameById(prop) {
     switch (prop) {
       case "caseLayoutId":
-        propId = build[prop]
-        
-        debugger;
-        console.log(prop);
-        break;
+        propId = build[prop];
+
+        const matchingLayout = layouts.find((layout) => propId === layout.id);
+        return matchingLayout.name;
+
       case "switchMaterialId":
       case "plateMaterialId":
       case "caseMaterialId":
+      case "keycapMaterialId":
         propId = build[prop];
-        debugger;
-        console.log(prop);
-        break;
+        const matchingMaterial = materials.find(
+          (material) => propId === material.id
+        );
+        return matchingMaterial.name;
+
       case "switchTypeId":
         propId = build[prop];
-        break;
+        const matchingSwitchType = switchTypes.find(
+          (switchType) => propId === switchType.id
+        );
+        return matchingSwitchType.name;
+
       default:
-        console.log(prop);
+        alert("Sorry there was a problem.")
         break;
     }
   }
@@ -55,11 +62,8 @@ const Build = ({ build }) => {
   function inputCheck(prop) {
     if (build.hasOwnProperty(prop) && build[prop] !== "") {
       if (prop.includes("Id")) {
-        debugger;
-        getNameById(prop);
-        debugger;
         //need logic to identify the resource & grab name
-        return;
+        return getNameById(prop);
       }
     }
     return build[prop];
