@@ -16,16 +16,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuildList() {
+export default function BuildList({ myBuilds }) {
   const classes = useStyles();
-  const fakeBuilds = [1, 2, 3];
+  
   return (
     <>
       <Container className={classes.buildList}>
-        {fakeBuilds.map((build) => (
-          <Build />
+        {myBuilds.map((build) => (
+          <Build key={build.name} build={build} />
         ))}
       </Container>
     </>
   );
-};
+}

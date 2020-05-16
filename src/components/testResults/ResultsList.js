@@ -42,7 +42,7 @@ export const ResultsList = React.memo(({ currentUserId, myBuilds }) => {
           {myResults.map((result) => {
             const resultBuild =
               myBuilds.find((build) => build.id === result.buildId) || {};
-            return <Result result={result} matchingBuild={resultBuild} />;
+            return <Result key={result.id} result={result} matchingBuild={resultBuild} />;
           }) || []}
         </TableBody>
       </Table>

@@ -26,29 +26,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Build = ({ build }) => {
   const classes = useStyles();
+
+  //  const currentBuild = {...build}
+
+  function inputCheck(prop) {
+    if (build.hasOwnProperty(prop) && build[prop] !== "") {
+      return build[prop];
+    }
+  }
+
+  // {`${build.description}` ? `${build.description}` : false}
+
   return (
     <Card className={classes.card}>
       <div className={classes.flexRow}>
-        <CardHeader title="Purple Polaris" subheader="my main build" />
+        <CardHeader
+          title={inputCheck("name") ? `${build.name}` : `${build.caseName}`}
+          subheader={inputCheck("description")}
+        />
         <Chip label="status" variant="outlined" />
       </div>
       <CardContent className={classes.flexRow}>
         <div>
-          <Typography variant="h5">Polaris</Typography>
-          <Typography>60%</Typography>
-          <Typography>HHKB</Typography>
-          <Typography>Brass Plate</Typography>
+          <Typography variant="h5">{inputCheck("caseName")}</Typography>
+          <Typography>{inputCheck("caseLayoutId")}</Typography>
+          {/**will need to revist to bring in case layout name */}
+          <Typography>{inputCheck("caseDesigner")}</Typography>
+          <Typography>{inputCheck("caseMaterialId")}</Typography>
+          {/**will need to revist to bring in case material name */}
+          <Typography>{inputCheck("plateMaterialId")}</Typography>
+          {/**will need to revist to bring in case material name */}
         </div>
         <div>
-          <Typography variant="h5">67g</Typography>
-          <Typography>tactile</Typography>
-          <Typography>Zealios</Typography>
-          <Typography>Tribosys 3203</Typography>
+          <Typography variant="h5">{inputCheck("switchWeight") ? `${build.switchWeight}g` : null}</Typography>
+          <Typography>{inputCheck("switchTypeId")}</Typography>{" "}
+          {/**will need to revist to bring in switch type name */}
+          <Typography>{inputCheck("switchName")}</Typography>
+          <Typography>{inputCheck("switchLube")}</Typography>
         </div>
         <div>
-          <Typography variant="h5">GMK Jamon</Typography>
-          <Typography>Doubleshot ABS</Typography>
-          <Typography>Cherry</Typography>
+          <Typography variant="h5">{inputCheck("keycapName")}</Typography>
+          <Typography>{inputCheck("keycapMaterialId")}</Typography>{" "}
+          {/**will need to revist to bring in material name */}
+          <Typography>{inputCheck("keycapProfile")}</Typography>
         </div>
       </CardContent>
     </Card>

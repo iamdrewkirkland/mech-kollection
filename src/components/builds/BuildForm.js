@@ -13,6 +13,7 @@ export default function BuildForm({
 }) {
   const buildName = useRef();
   const buildWeight = useRef();
+  const buildDescription = useRef();
   let isActive = false;
   const activeStatus = useRef();
 
@@ -23,11 +24,14 @@ export default function BuildForm({
     return (isActive = !isActive);
   }
 
-  function handleChange() {
+  function handleChange(input) {
+     //if the input is "" or null, do not add the property.
+     
     const newBuildObject = {
       userId: parseInt(localStorage.getItem("current_user")),
       name: buildName.current.value,
       buildWeight: parseInt(buildWeight.current.value),
+      description: buildDescription.current.value,
     };
     const newStatusObject = {
       isActive: isActive,
@@ -46,6 +50,13 @@ export default function BuildForm({
             label="Build Name"
             onChange={handleChange}
             inputRef={buildName}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Build Description"
+            onChange={handleChange}
+            inputRef={buildDescription}
           />
         </Grid>
         <Grid item>
