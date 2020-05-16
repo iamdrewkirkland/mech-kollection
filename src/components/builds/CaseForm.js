@@ -3,9 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import { LayoutContext } from "../layouts/LayoutProvider";
 
-export default function CaseForm({ currentInputs, setInputs, materials }) {
+
+
+export default function CaseForm({ currentInputs, setInputs, materials, layouts }) {
   //references to user input fields
   const caseName = useRef();
   const caseColor = useRef();
@@ -13,7 +14,6 @@ export default function CaseForm({ currentInputs, setInputs, materials }) {
   const caseMaterial = useRef();
   const plateMaterial = useRef();
   const layout = useRef();
-  const { layouts } = useContext(LayoutContext);
 
   function filterMaterials(resource) {
     return materials.filter((material) => material.resource === resource);

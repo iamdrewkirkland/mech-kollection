@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BuildList({ myBuilds }) {
+export const BuildList = React.memo(({ myBuilds }) => {
   const classes = useStyles();
-  
+
   return (
     <>
       <Container className={classes.buildList}>
@@ -28,4 +28,4 @@ export default function BuildList({ myBuilds }) {
       </Container>
     </>
   );
-}
+});

@@ -26,16 +26,44 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Build = ({ build }) => {
   const classes = useStyles();
+  let propId = null;
 
-  //  const currentBuild = {...build}
-
-  function inputCheck(prop) {
-    if (build.hasOwnProperty(prop) && build[prop] !== "") {
-      return build[prop];
+  function getNameById(prop) {
+    switch (prop) {
+      case "caseLayoutId":
+        propId = build[prop]
+        
+        debugger;
+        console.log(prop);
+        break;
+      case "switchMaterialId":
+      case "plateMaterialId":
+      case "caseMaterialId":
+        propId = build[prop];
+        debugger;
+        console.log(prop);
+        break;
+      case "switchTypeId":
+        propId = build[prop];
+        break;
+      default:
+        console.log(prop);
+        break;
     }
   }
 
-  // {`${build.description}` ? `${build.description}` : false}
+  function inputCheck(prop) {
+    if (build.hasOwnProperty(prop) && build[prop] !== "") {
+      if (prop.includes("Id")) {
+        debugger;
+        getNameById(prop);
+        debugger;
+        //need logic to identify the resource & grab name
+        return;
+      }
+    }
+    return build[prop];
+  }
 
   return (
     <Card className={classes.card}>
@@ -58,7 +86,9 @@ const Build = ({ build }) => {
           {/**will need to revist to bring in case material name */}
         </div>
         <div>
-          <Typography variant="h5">{inputCheck("switchWeight") ? `${build.switchWeight}g` : null}</Typography>
+          <Typography variant="h5">
+            {inputCheck("switchWeight") ? `${build.switchWeight}g` : null}
+          </Typography>
           <Typography>{inputCheck("switchTypeId")}</Typography>{" "}
           {/**will need to revist to bring in switch type name */}
           <Typography>{inputCheck("switchName")}</Typography>

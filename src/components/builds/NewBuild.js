@@ -14,7 +14,8 @@ import {
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
 import { StatusContext } from "../statuses/StatusProvider";
-import { MaterialContext } from "../materials/MaterialProvider";
+
+
 
 //function to override default styling
 const useStyles = makeStyles((theme) => ({
@@ -26,13 +27,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //function that established a new build to be linked to "add build" button
-export default function NewBuild() {
+export default function NewBuild({materials, layouts, switchTypes}) {
   //variable to hold styles
   const classes = useStyles();
 
   const { addBuild } = useContext(BuildContext);
   const { addStatus } = useContext(StatusContext);
-  const { materials } = useContext(MaterialContext);
 
   /** STATE HOOKS
    *    state hook to set and contain the form input values.
@@ -66,6 +66,7 @@ export default function NewBuild() {
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             materials={materials}
+            layouts={layouts}
           />
         );
       case 2:
@@ -73,7 +74,7 @@ export default function NewBuild() {
           <SwitchForm
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
-            materials={materials}
+            switchTypes={switchTypes}
           />
         );
       case 3:

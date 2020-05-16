@@ -3,10 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
-import { SwitchTypeContext } from "../switches/SwitchTypeProvider";
 
-export default function SwitchForm({ currentInputs, setInputs }) {
-  const { switchTypes } = useContext(SwitchTypeContext);
+
+export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
   const switchName = useRef();
   const switchWeight = useRef();
   const switchLube = useRef();
