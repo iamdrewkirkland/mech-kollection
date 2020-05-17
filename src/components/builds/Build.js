@@ -78,8 +78,13 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
     const hiddenBuildObject = {
       isHidden: true,
     };
-    updateBuild(Object.assign(currentBuildObject, hiddenBuildObject));
+    const updatedBuild = Object.assign(currentBuildObject, hiddenBuildObject)
+    debugger
+    updateBuild(updatedBuild);
+    debugger
   }
+
+  
 
   return (
     <Card className={classes.card}>

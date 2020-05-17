@@ -30,13 +30,13 @@ export const BuildProvider = (props) => {
             .then(getBuilds)
     }
     const deleteBuild = (buildId) => {
-        return fetch(`http://localhost:8088/builds?=${buildId}`, {
+        return fetch(`http://localhost:8088/builds/${buildId}`, {
             method: "DELETE"
         })
             .then(getBuilds)
     }
     const updateBuild = build => {
-        return fetch(`http://localhost:8088/builds?=${build.id}`, {
+        return fetch(`http://localhost:8088/builds/${build.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
