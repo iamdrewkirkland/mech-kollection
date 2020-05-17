@@ -117,20 +117,19 @@ export default function NewBuild({
   //function that designates all build data to appropriate resource
   function submitBuild() {
     if (
-      Object.values(newStatusObject).length !== 0 &&
-      Object.values(newBuildObject).length !== 1
+      Object.values(newStatusObject).length === 0 &&
+      Object.values(newBuildObject).length === 1
     ) {
-      addStatus(newStatusObject);
-      addBuild(newBuildObject);
+      alert("Enter some values, yo. Ain't nothing saved.");
+      // return(<Alert severity="error">
+      //   <AlertTitle>Error</AlertTitle>
+      //   Sorry, you did not enter any values. Your changes have not been saved.
+      // </Alert>)
     } else if (Object.values(newStatusObject).length === 0) {
       addBuild(newBuildObject);
     } else {
-      return (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Sorry, you did not enter any values. Your changes have not been saved.
-        </Alert>
-      );
+      addStatus(newStatusObject);
+      addBuild(newBuildObject);
     }
   }
   return (
@@ -170,7 +169,7 @@ export default function NewBuild({
                     }
                   }}
                 >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  {activeStep === steps.length - 1 ? "Submit" : "Next"}
                 </Button>
               </div>
             </React.Fragment>
