@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -6,8 +6,11 @@ import {
   CardContent,
   makeStyles,
   Chip,
+  Button,
 } from "@material-ui/core";
-
+import { BuildContext } from "./BuildDataProvider";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
 /**
  *  jsx representation of a full build item.
  *  should have all properties from ERD represented
@@ -24,9 +27,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-const Build = ({ build, layouts, materials, switchTypes }) => {
+const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
   const classes = useStyles();
   let propId = null;
+  const { updateBuild } = useContext(BuildContext);
 
   function getNameById(prop) {
     switch (prop) {
@@ -54,11 +58,11 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
         return matchingSwitchType.name;
 
       default:
-        alert("Sorry there was a problem.")
+        alert("Sorry there was a problem.");
         break;
     }
   }
-  
+
   //function to check if property exsists and is not null
   function inputCheck(prop) {
     if (build.hasOwnProperty(prop) && build[prop] !== "") {
@@ -70,6 +74,19 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
     return build[prop];
   }
 
+  function removeBuild() {
+    const currentBuildObject = { ...build };
+    const hiddenBuildObject = {
+      isHidden: true,
+    };
+    const updatedBuild = Object.assign(currentBuildObject, hiddenBuildObject);
+    updateBuild(updatedBuild);
+  }
+  function editBuild() {
+    editThisBuild(build);
+    
+  }
+
   return (
     <Card className={classes.card}>
       <div className={classes.flexRow}>
@@ -78,6 +95,12 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
           subheader={inputCheck("description") ? `${build.description}` : null}
         />
         <Chip label="status" variant="outlined" />
+        <Button onClick={editBuild}>
+          <EditRoundedIcon />
+        </Button>
+        <Button onClick={removeBuild}>
+          <CloseRoundedIcon color="secondary" />
+        </Button>
       </div>
       <CardContent className={classes.flexRow}>
         <div>

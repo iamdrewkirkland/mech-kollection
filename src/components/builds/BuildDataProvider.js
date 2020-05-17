@@ -29,6 +29,23 @@ export const BuildProvider = (props) => {
         })
             .then(getBuilds)
     }
+    const deleteBuild = (buildId) => {
+        return fetch(`http://localhost:8088/builds/${buildId}`, {
+            method: "DELETE"
+        })
+            .then(getBuilds)
+    }
+    const updateBuild = build => {
+        return fetch(`http://localhost:8088/builds/${build.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "cache-control":"no-cache"
+            },
+            body: JSON.stringify(build)
+        })
+            .then(getBuilds)
+    }
 
     
 
@@ -46,7 +63,7 @@ export const BuildProvider = (props) => {
 
     return (
         <BuildContext.Provider value={{
-            builds, addBuild, getBuilds
+            builds, addBuild, deleteBuild, updateBuild
         }}>
             {props.children}
         </BuildContext.Provider>

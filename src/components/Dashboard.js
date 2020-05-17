@@ -55,11 +55,16 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
   const { builds } = useContext(BuildContext);
 
   const [myBuilds, setMyBuilds] = useState([]);
+  const [myCollection, setMyCollection] = useState([]);
 
   useEffect(() => {
     const matchingBuilds =
       builds.filter((build) => build.userId === currentUserId) || [];
+
+    const collectionBuilds =
+      matchingBuilds.filter((build) => !build.hasOwnProperty("isHidden")) || [];
     setMyBuilds(matchingBuilds);
+    setMyCollection(collectionBuilds);
   }, [currentUserId, builds]);
 
   function logout() {
@@ -94,7 +99,7 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
                   <BuildsView
-                    myBuilds={myBuilds}
+                    myBuilds={myCollection}
                     currentUserId={currentUserId}
                   />
                 </Paper>
@@ -103,6 +108,7 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
                 <Paper className={fixedHeightPaper}>
                   <ResultsView
                     myBuilds={myBuilds}
+                    myCollection={myCollection}
                     currentUserId={currentUserId}
                   />
                 </Paper>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import BuildForm from "./BuildForm";
 import CaseForm from "./CaseForm";
 import KeycapForm from "./KeycapForm";
@@ -32,11 +32,13 @@ export default function NewBuild({
   layouts,
   switchTypes,
   currentUserId,
+  editBuild,
 }) {
   //variable to hold styles
   const classes = useStyles();
 
   const { addBuild } = useContext(BuildContext);
+  const { updateBuild } = useContext(BuildContext);
   const { addStatus } = useContext(StatusContext);
 
   /** STATE HOOKS
@@ -49,8 +51,16 @@ export default function NewBuild({
   const [buildStatus, setBuildStatus] = useState(null);
 
   //separating form inputs into new objects to be posted
-  const newBuildObject = { ...buildInputs };
-  const newStatusObject = { ...buildStatus };
+  const buildObject = { ...buildInputs };
+  const statusObject = { ...buildStatus };
+
+  //function to check if "editBuild" is empty and populate "buildInputs" accordingly
+
+  useEffect(() => {
+    if (Object.values(editBuild).length !== 0) {
+      setBuildInputs(editBuild);
+    }
+  }, [editBuild]);
 
   //array declaring the name and order of the form steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
@@ -114,22 +124,26 @@ export default function NewBuild({
     setActiveStep(activeStep - 1);
   }
 
+  function clearEditBuild() {
+    editBuild = {};
+  }
+  
   //function that designates all build data to appropriate resource
   function submitBuild() {
     if (
-      Object.values(newStatusObject).length === 0 &&
-      Object.values(newBuildObject).length === 1
+      Object.values(statusObject).length !== 0 &&
+      Object.values(buildObject).length !== 1 &&
+      Object.values(editBuild).length === 0
     ) {
-      alert("Enter some values, yo. Ain't nothing saved.");
-      // return(<Alert severity="error">
-      //   <AlertTitle>Error</AlertTitle>
-      //   Sorry, you did not enter any values. Your changes have not been saved.
-      // </Alert>)
-    } else if (Object.values(newStatusObject).length === 0) {
-      addBuild(newBuildObject);
-    } else {
-      addStatus(newStatusObject);
-      addBuild(newBuildObject);
+      addStatus(statusObject);
+      addBuild(buildObject);
+    } else if (
+      Object.values(statusObject).length === 0 &&
+      Object.values(editBuild).length === 0
+    ) {
+      addBuild(buildObject);
+    } else if(Object.values(editBuild).length !== 0) {
+      updateBuild(buildObject)
     }
   }
   return (
@@ -162,7 +176,7 @@ export default function NewBuild({
                   color="primary"
                   onClick={() => {
                     if (activeStep === steps.length - 1) {
-                      submitBuild(newBuildObject);
+                      submitBuild(buildObject);
                       handleNext();
                     } else {
                       handleNext();
