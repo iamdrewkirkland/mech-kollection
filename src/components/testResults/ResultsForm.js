@@ -13,6 +13,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 export const ResultsForm = React.memo(
   ({ result, toggleForm, setResult, myBuilds, myCollection }) => {
@@ -21,6 +23,7 @@ export const ResultsForm = React.memo(
     const wpm = useRef(null);
     const website = useRef("");
     const [personalBest, setPersonalBest] = useState(false);
+    const [selectedDate, handleDateChange] = useState(new Date());
 
     const { addResults } = useContext(ResultsContext);
 
@@ -31,7 +34,7 @@ export const ResultsForm = React.memo(
     function handleChange() {
       const newResultObject = {
         buildId: buildId.current.value,
-        date: date.current.value,
+        date: selectedDate,
         wpm: parseInt(wpm.current.value),
         pb: personalBest,
         website: website.current.value,
@@ -73,7 +76,7 @@ export const ResultsForm = React.memo(
             </Select>
           </Grid>
           <Grid>
-            <TextField
+            {/* <TextField
               id="datetime-local"
               label="Date and Time"
               type="datetime-local"
@@ -82,7 +85,10 @@ export const ResultsForm = React.memo(
               InputLabelProps={{
                 shrink: true,
               }}
-            />
+            /> */}
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+              <DateTimePicker value={selectedDate} onChange={handleDateChange} disableFuture={true}/>
+            </MuiPickersUtilsProvider>
           </Grid>
           <Grid item>
             <TextField label="WPM" inputRef={wpm} onChange={handleChange} />
