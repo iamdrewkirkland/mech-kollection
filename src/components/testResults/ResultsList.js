@@ -10,7 +10,7 @@ import { ResultsContext } from "./ResultsProvider";
 import { useState } from "react";
 import Result from "./Result";
 
-export const ResultsList = React.memo(({ currentUserId, myBuilds }) => {
+export const ResultsList = React.memo(({ myBuilds }) => {
   const { results } = useContext(ResultsContext);
 
   const [myResults, setMyResults] = useState([]);
@@ -31,17 +31,18 @@ export const ResultsList = React.memo(({ currentUserId, myBuilds }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
             <TableCell>Build</TableCell>
             <TableCell>WPM</TableCell>
             <TableCell>PB?</TableCell>
             <TableCell>Website</TableCell>
+            <TableCell>Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {myResults.map((result) => {
             const resultBuild =
               myBuilds.find((build) => build.id === result.buildId) || {};
+              
             return <Result key={result.id} result={result} matchingBuild={resultBuild} />;
           }) || []}
         </TableBody>

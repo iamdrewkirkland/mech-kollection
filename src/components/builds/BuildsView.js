@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import { Paper, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import NewBuild from "./NewBuild";
 import { BuildList } from "./BuildList";
 import { MaterialContext } from "../materials/MaterialProvider";
 import { LayoutContext } from "../layouts/LayoutProvider";
 import { SwitchTypeContext } from "../switches/SwitchTypeProvider";
-export default function BuildsView({ myBuilds }) {
+export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
   const [showForm, toggleShowForm] = useState(false);
   const { materials } = useContext(MaterialContext);
   const { switchTypes } = useContext(SwitchTypeContext);
@@ -14,7 +14,12 @@ export default function BuildsView({ myBuilds }) {
   return (
     <>
       {showForm ? (
-        <NewBuild materials={materials} layouts={layouts} switchTypes={switchTypes}/>
+        <NewBuild
+          materials={materials}
+          layouts={layouts}
+          switchTypes={switchTypes}
+          currentUserId={currentUserId}
+        />
       ) : (
         <BuildList
           materials={materials}
@@ -35,4 +40,4 @@ export default function BuildsView({ myBuilds }) {
       </Button>
     </>
   );
-}
+});

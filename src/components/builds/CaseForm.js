@@ -4,9 +4,12 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 
-
-
-export default function CaseForm({ currentInputs, setInputs, materials, layouts }) {
+export default function CaseForm({
+  currentInputs,
+  setInputs,
+  materials,
+  layouts,
+}) {
   //references to user input fields
   const caseName = useRef();
   const caseColor = useRef();
@@ -38,7 +41,12 @@ export default function CaseForm({ currentInputs, setInputs, materials, layouts 
       <Typography variant="h4">Case Info</Typography>
       <Grid container spacing={1}>
         <Grid item>
-          <TextField label="Name" onChange={handleChange} inputRef={caseName} />
+          <TextField
+            required
+            label="Name"
+            onChange={handleChange}
+            inputRef={caseName}
+          />
         </Grid>
         <Grid item>
           <TextField
@@ -57,7 +65,12 @@ export default function CaseForm({ currentInputs, setInputs, materials, layouts 
 
         <Grid>
           <InputLabel id="layout">Layout</InputLabel>
-          <Select labelId="layout" onChange={handleChange} inputRef={layout}>
+          <Select
+            required
+            labelId="layout"
+            onChange={handleChange}
+            inputRef={layout}
+          >
             {layouts.map((layout) => (
               <MenuItem key={layout.name} value={layout.id}>
                 {layout.name}

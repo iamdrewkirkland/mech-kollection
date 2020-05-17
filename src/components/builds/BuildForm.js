@@ -11,24 +11,26 @@ export default function BuildForm({
   currentInputs,
   setInputs,
 }) {
+  //establish input references to grab values
   const buildName = useRef();
   const buildWeight = useRef();
   const buildDescription = useRef();
   let isActive = false;
   const activeStatus = useRef();
 
+  //deconstruct all current inputs from previous form pages
   const currentBuildObject = { ...currentInputs };
   const currentStatusObjecct = { ...status };
 
+  //function to control value of toggle
   function toggleActive() {
     return (isActive = !isActive);
   }
 
-  function handleChange(input) {
-     //if the input is "" or null, do not add the property.
+  //function that executes each time an input is changed
+  function handleChange() {
      
     const newBuildObject = {
-      userId: parseInt(localStorage.getItem("current_user")),
       name: buildName.current.value,
       buildWeight: parseInt(buildWeight.current.value),
       description: buildDescription.current.value,

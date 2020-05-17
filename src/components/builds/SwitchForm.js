@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { Select, InputLabel, MenuItem } from "@material-ui/core";
 
-
 export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
   const switchName = useRef();
   const switchWeight = useRef();
@@ -29,6 +28,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
       <Grid container spacing={1}>
         <Grid item>
           <TextField
+            required
             label="Name"
             onChange={handleChange}
             inputRef={switchName}
@@ -37,6 +37,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
         <Grid>
           <InputLabel id="switchType">Type</InputLabel>
           <Select
+            required
             labelId="switchType"
             onChange={handleChange}
             inputRef={switchType}

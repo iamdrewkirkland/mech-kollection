@@ -14,100 +14,116 @@ import {
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
 
+export const ResultsForm = React.memo(
+  ({ result, toggleForm, setResult, myBuilds }) => {
+    const buildId = useRef(null);
+    const date = useRef(null);
+    const wpm = useRef(null);
+    const website = useRef("");
+    const [personalBest, setPersonalBest] = useState(false);
 
-export const ResultsForm = React.memo(({ result, toggleForm, setResult, myBuilds }) => {
-  const buildId = useRef(null);
-  const date = useRef(null);
-  const wpm = useRef(null);
-  const website = useRef("");
-  const [personalBest, setPersonalBest] = useState(false);
+    const { addResults } = useContext(ResultsContext);
 
-  const { addResults } = useContext(ResultsContext);
+    function toggleBest() {
+      setPersonalBest(!personalBest);
+    }
 
-  function toggleBest() {
-    setPersonalBest(!personalBest);
-  }
+    function handleChange() {
+      const newResultObject = {
+        buildId: buildId.current.value,
+        date: date.current.value,
+        wpm: parseInt(wpm.current.value),
+        pb: personalBest,
+        website: website.current.value,
+      };
+      setResult(newResultObject);
+    }
+    function submitClose() {
+      addResults(result);
+      toggleForm();
+    }
 
-  function handleChange() {
-    const newResultObject = {
-      buildId: buildId.current.value,
-      date: date.current.value,
-      wpm: parseInt(wpm.current.value),
-      pb: personalBest,
-      website: website.current.value,
-    };
-    setResult(newResultObject);
-  };
-  function submitClose() {
-    addResults(result)
-    toggleForm();
-  }
-  return (
-    <>
-      <Typography variant="h4">Results Info</Typography>
-      <Grid container spacing={1}>
-        <Grid>
-          <InputLabel id="build">Build</InputLabel>
-          <Select labelId="build" onChange={handleChange} inputRef={buildId}>
-            {myBuilds.map((build) => (
-              <MenuItem key={build.name} value={build.id}>
-                {build.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid>
-          <TextField
-            id="datetime-local"
-            label="Date and Time"
-            type="datetime-local"
-            inputRef={date}
-            onChange={handleChange}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-        </Grid>
-        <Grid item>
-          <TextField label="WPM" inputRef={wpm} onChange={handleChange} />
-        </Grid>
-        <Grid item>
-          <FormControlLabel
-            label="Personal Best?"
-            control={
-              <Switch
-                onChange={() => {
-                  toggleBest();
-                  handleChange();
-                }}
+    //function to check if property exsists and is not null
+    function inputCheck(buildObject, prop) {
+      if (buildObject.hasOwnProperty(prop) && buildObject[prop] !== "") {
+        return buildObject[prop];
+      }
+    }
+    return (
+      <>
+        <Typography variant="h4">Results Info</Typography>
+        <Grid container spacing={1}>
+          <Grid>
+            <InputLabel id="build">Build</InputLabel>
+            <Select labelId="build" onChange={handleChange} inputRef={buildId}>
+              {myBuilds.map((build) => (
+                <MenuItem
+                  key={
+                    inputCheck(build, "name")
+                      ? `${build.name}`
+                      : `${build.caseName}`
+                  }
+                  value={build.id}
+                >
+                  {inputCheck(build, "name")
+                    ? `${build.name}`
+                    : `${build.caseName}`}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid>
+            <TextField
+              id="datetime-local"
+              label="Date and Time"
+              type="datetime-local"
+              inputRef={date}
+              onChange={handleChange}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <TextField label="WPM" inputRef={wpm} onChange={handleChange} />
+          </Grid>
+          <Grid item>
+            <FormControlLabel
+              label="Personal Best?"
+              control={
+                <Switch
+                  onChange={() => {
+                    toggleBest();
+                    handleChange();
+                  }}
+                />
+              }
+            />
+          </Grid>
+          <Grid>
+            <FormControl component="fieldset" inputRef={website}>
+              <FormControlLabel
+                label="10fastfingers.com"
+                labelPlacement="end"
+                control={<Radio />}
               />
-            }
-          />
+              <FormControlLabel
+                label="typetest.io"
+                labelPlacement="end"
+                control={<Radio />}
+              />
+              <FormControlLabel
+                label="typing.works"
+                labelPlacement="end"
+                control={<Radio />}
+              />
+            </FormControl>
+          </Grid>
+          <Button variant="contained" color="primary" onClick={submitClose}>
+            ADD RESULT
+          </Button>
         </Grid>
-        <Grid>
-          <FormControl component="fieldset" inputRef={website}>
-            <FormControlLabel
-              label="10fastfingers.com"
-              labelPlacement="end"
-              control={<Radio />}
-            />
-            <FormControlLabel
-              label="typetest.io"
-              labelPlacement="end"
-              control={<Radio />}
-            />
-            <FormControlLabel
-              label="typing.works"
-              labelPlacement="end"
-              control={<Radio />}
-            />
-          </FormControl>
-        </Grid>
-        <Button
-        variant="contained"
-        color="primary"
-        onClick={submitClose}>ADD RESULT</Button>
-      </Grid>
-    </>
-  );
-})
+      </>
+    );
+  }
+);

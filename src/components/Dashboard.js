@@ -11,7 +11,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { ResultsView } from "./testResults/ResultsView";
-import BuildsView from "./builds/BuildsView";
+import { BuildsView } from "./builds/BuildsView";
 import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
 import { BuildContext } from "./builds/BuildDataProvider";
@@ -54,7 +54,6 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   const { builds } = useContext(BuildContext);
 
-
   const [myBuilds, setMyBuilds] = useState([]);
 
   useEffect(() => {
@@ -67,7 +66,6 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
     localStorage.removeItem("current_user");
     toggleAuth();
   }
-
 
   return (
     <>

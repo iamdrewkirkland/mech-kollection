@@ -14,8 +14,8 @@ import {
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
 import { StatusContext } from "../statuses/StatusProvider";
-
-
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
 //function to override default styling
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //function that established a new build to be linked to "add build" button
-export default function NewBuild({materials, layouts, switchTypes}) {
+export default function NewBuild({
+  materials,
+  layouts,
+  switchTypes,
+  currentUserId,
+}) {
   //variable to hold styles
   const classes = useStyles();
 
@@ -38,7 +43,9 @@ export default function NewBuild({materials, layouts, switchTypes}) {
    *    state hook to set and contain the form input values.
    *    pass to each child component to set and return values.
    */
-  const [buildInputs, setBuildInputs] = useState(null);
+  const [buildInputs, setBuildInputs] = useState({
+    userId: currentUserId,
+  });
   const [buildStatus, setBuildStatus] = useState(null);
 
   //separating form inputs into new objects to be posted
@@ -109,8 +116,22 @@ export default function NewBuild({materials, layouts, switchTypes}) {
 
   //function that designates all build data to appropriate resource
   function submitBuild() {
-    addBuild(newBuildObject);
-    addStatus(newStatusObject);
+    if (
+      Object.values(newStatusObject).length !== 0 &&
+      Object.values(newBuildObject).length !== 1
+    ) {
+      addStatus(newStatusObject);
+      addBuild(newBuildObject);
+    } else if (Object.values(newStatusObject).length === 0) {
+      addBuild(newBuildObject);
+    } else {
+      return (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Sorry, you did not enter any values. Your changes have not been saved.
+        </Alert>
+      );
+    }
   }
   return (
     <>

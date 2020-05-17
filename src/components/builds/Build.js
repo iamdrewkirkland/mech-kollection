@@ -58,7 +58,8 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
         break;
     }
   }
-
+  
+  //function to check if property exsists and is not null
   function inputCheck(prop) {
     if (build.hasOwnProperty(prop) && build[prop] !== "") {
       if (prop.includes("Id")) {
@@ -74,7 +75,7 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
       <div className={classes.flexRow}>
         <CardHeader
           title={inputCheck("name") ? `${build.name}` : `${build.caseName}`}
-          subheader={inputCheck("description")}
+          subheader={inputCheck("description") ? `${build.description}` : null}
         />
         <Chip label="status" variant="outlined" />
       </div>

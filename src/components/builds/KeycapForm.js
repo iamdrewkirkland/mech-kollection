@@ -26,7 +26,7 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
     const newBuildObject = {
       keycapName: keycapName.current.value,
       keycapProfile: keycapProfile.current.value,
-      keycapMaterialId: keycapMaterial.current.value
+      keycapMaterialId: keycapMaterial.current.value,
     };
     setInputs(Object.assign(currentBuildObject, newBuildObject));
   };
@@ -37,6 +37,7 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
       <Grid container spacing={1}>
         <Grid item>
           <TextField
+            required
             label="Name"
             onChange={handleChange}
             inputRef={keycapName}
