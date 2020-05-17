@@ -9,7 +9,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
-
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import EditRoundedIcon from "@material-ui/icons/EditRounded";
 /**
  *  jsx representation of a full build item.
  *  should have all properties from ERD represented
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
   },
 }));
-const Build = ({ build, layouts, materials, switchTypes }) => {
+const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
   const classes = useStyles();
   let propId = null;
   const { updateBuild } = useContext(BuildContext);
@@ -78,13 +79,13 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
     const hiddenBuildObject = {
       isHidden: true,
     };
-    const updatedBuild = Object.assign(currentBuildObject, hiddenBuildObject)
-    debugger
+    const updatedBuild = Object.assign(currentBuildObject, hiddenBuildObject);
     updateBuild(updatedBuild);
-    debugger
   }
-
-  
+  function editBuild() {
+    editThisBuild(build);
+    
+  }
 
   return (
     <Card className={classes.card}>
@@ -94,7 +95,12 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
           subheader={inputCheck("description") ? `${build.description}` : null}
         />
         <Chip label="status" variant="outlined" />
-        <Button onClick={removeBuild}>REMOVE BUILD</Button>
+        <Button onClick={editBuild}>
+          <EditRoundedIcon />
+        </Button>
+        <Button onClick={removeBuild}>
+          <CloseRoundedIcon color="secondary" />
+        </Button>
       </div>
       <CardContent className={classes.flexRow}>
         <div>

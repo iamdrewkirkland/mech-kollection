@@ -6,11 +6,20 @@ import { MaterialContext } from "../materials/MaterialProvider";
 import { LayoutContext } from "../layouts/LayoutProvider";
 import { SwitchTypeContext } from "../switches/SwitchTypeProvider";
 export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
-  const [showForm, toggleShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [editBuild, setEditBuild] = useState({});
   const { materials } = useContext(MaterialContext);
   const { switchTypes } = useContext(SwitchTypeContext);
   const { layouts } = useContext(LayoutContext);
 
+  function editThisBuild(build){
+    setEditBuild({...build})
+    toggleShowForm()
+  }
+
+  function toggleShowForm(){
+    setShowForm(!showForm)
+  }
   return (
     <>
       {showForm ? (
@@ -18,6 +27,7 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
           materials={materials}
           layouts={layouts}
           switchTypes={switchTypes}
+          editBuild={editBuild}
           currentUserId={currentUserId}
         />
       ) : (
@@ -26,6 +36,8 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
           layouts={layouts}
           switchTypes={switchTypes}
           myBuilds={myBuilds}
+          editThisBuild={editThisBuild}
+          toggleShowForm={toggleShowForm}
         />
       )}
 
@@ -33,7 +45,8 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
         variant="contained"
         color="primary"
         onClick={() => {
-          toggleShowForm(!showForm);
+          setEditBuild({})
+          toggleShowForm();
         }}
       >
         {showForm ? "View Builds" : "Add Build"}
