@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 import { ResultsList } from "./ResultsList";
 import { ResultsForm } from "./ResultsForm";
 
-export const ResultsView = React.memo(({ currentUserId, myBuilds }) => {
+export const ResultsView = React.memo(({ currentUserId, myBuilds, myCollection }) => {
   const [showForm, toggleShowForm] = useState(false);
   const [result, setResult] = useState(null);
 
@@ -19,6 +19,7 @@ export const ResultsView = React.memo(({ currentUserId, myBuilds }) => {
           result={result}
           setResult={setResult}
           myBuilds={myBuilds}
+          myCollection={myCollection}
         />
       ) : (
         <ResultsList

@@ -15,7 +15,7 @@ import {
 import { ResultsContext } from "./ResultsProvider";
 
 export const ResultsForm = React.memo(
-  ({ result, toggleForm, setResult, myBuilds }) => {
+  ({ result, toggleForm, setResult, myBuilds, myCollection }) => {
     const buildId = useRef(null);
     const date = useRef(null);
     const wpm = useRef(null);
@@ -56,7 +56,7 @@ export const ResultsForm = React.memo(
           <Grid>
             <InputLabel id="build">Build</InputLabel>
             <Select labelId="build" onChange={handleChange} inputRef={buildId}>
-              {myBuilds.map((build) => (
+              {myCollection.map((build) => (
                 <MenuItem
                   key={
                     inputCheck(build, "name")

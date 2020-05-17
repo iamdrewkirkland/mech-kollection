@@ -10,7 +10,7 @@ import { ResultsContext } from "./ResultsProvider";
 import { useState } from "react";
 import Result from "./Result";
 
-export const ResultsList = React.memo(({ myBuilds }) => {
+export const ResultsList = React.memo(({ myBuilds, }) => {
   const { results } = useContext(ResultsContext);
 
   const [myResults, setMyResults] = useState([]);
@@ -41,7 +41,9 @@ export const ResultsList = React.memo(({ myBuilds }) => {
         <TableBody>
           {myResults.map((result) => {
             const resultBuild =
-              myBuilds.find((build) => build.id === result.buildId) || {};
+              myBuilds.find((build) => build.id === result.buildId) || {
+                //create "missing build" object
+              };
               
             return <Result key={result.id} result={result} matchingBuild={resultBuild} />;
           }) || []}

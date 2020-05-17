@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles, Container } from "@material-ui/core";
 import Build from "./Build";
-
 /**
  *  Component: BuildList
  *      Reponsible for rendering the list of build cards from the users build collection.

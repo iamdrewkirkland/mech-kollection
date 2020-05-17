@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardHeader,
@@ -6,7 +6,9 @@ import {
   CardContent,
   makeStyles,
   Chip,
+  Button,
 } from "@material-ui/core";
+import { BuildContext } from "./BuildDataProvider";
 
 /**
  *  jsx representation of a full build item.
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const Build = ({ build, layouts, materials, switchTypes }) => {
   const classes = useStyles();
   let propId = null;
+  const { updateBuild } = useContext(BuildContext);
 
   function getNameById(prop) {
     switch (prop) {
@@ -54,11 +57,11 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
         return matchingSwitchType.name;
 
       default:
-        alert("Sorry there was a problem.")
+        alert("Sorry there was a problem.");
         break;
     }
   }
-  
+
   //function to check if property exsists and is not null
   function inputCheck(prop) {
     if (build.hasOwnProperty(prop) && build[prop] !== "") {
@@ -70,6 +73,14 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
     return build[prop];
   }
 
+  function removeBuild() {
+    const currentBuildObject = { ...build };
+    const hiddenBuildObject = {
+      isHidden: true,
+    };
+    updateBuild(Object.assign(currentBuildObject, hiddenBuildObject));
+  }
+
   return (
     <Card className={classes.card}>
       <div className={classes.flexRow}>
@@ -78,6 +89,7 @@ const Build = ({ build, layouts, materials, switchTypes }) => {
           subheader={inputCheck("description") ? `${build.description}` : null}
         />
         <Chip label="status" variant="outlined" />
+        <Button onClick={removeBuild}>REMOVE BUILD</Button>
       </div>
       <CardContent className={classes.flexRow}>
         <div>
