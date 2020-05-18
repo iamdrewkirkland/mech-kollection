@@ -62,7 +62,6 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
     if (radioValue === null) {
       setError(true);
     } else {
-      debugger;
       addResults(newResultObject);
       toggleForm();
     }

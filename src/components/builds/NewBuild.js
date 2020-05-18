@@ -51,7 +51,7 @@ export default function NewBuild({
   const [buildStatus, setBuildStatus] = useState(null);
 
   //separating form inputs into new objects to be posted
-  const buildObject = { ...buildInputs };
+  // let buildObject = { ...buildInputs };
   const statusObject = { ...buildStatus };
 
   //function to check if "editBuild" is empty and populate "buildInputs" accordingly
@@ -112,11 +112,7 @@ export default function NewBuild({
 
   //function for "next" button action. on final step, submit newBuild for post.
   function handleNext() {
-    if (activeStep === steps.length) {
-      submitBuild();
-    } else {
-      setActiveStep(activeStep + 1);
-    }
+    setActiveStep(activeStep + 1);
   }
 
   //function for "back" button action
@@ -131,18 +127,18 @@ export default function NewBuild({
   function submitBuild() {
     if (
       Object.values(statusObject).length !== 0 &&
-      Object.values(buildObject).length !== 1 &&
+      Object.values(buildInputs).length !== 1 &&
       Object.values(editBuild).length === 0
     ) {
       addStatus(statusObject);
-      addBuild(buildObject);
+      addBuild(buildInputs);
     } else if (
       Object.values(statusObject).length === 0 &&
       Object.values(editBuild).length === 0
     ) {
-      addBuild(buildObject);
+      addBuild(buildInputs);
     } else if (Object.values(editBuild).length !== 0) {
-      updateBuild(buildObject);
+      updateBuild(buildInputs);
     } else {
       return (
         <Alert severity="error">
@@ -182,7 +178,7 @@ export default function NewBuild({
                   color="primary"
                   onClick={() => {
                     if (activeStep === steps.length - 1) {
-                      submitBuild(buildObject);
+                      submitBuild();
                       handleNext();
                     } else {
                       handleNext();
