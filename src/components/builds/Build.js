@@ -95,11 +95,11 @@ const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
           subheader={inputCheck("description") ? `${build.description}` : null}
         />
         {/* <Chip label="status" variant="outlined" /> */}
-        <Tooltip title="Edit Build" arrow>
+        {/* <Tooltip title="Edit Build" arrow>
           <Button onClick={editBuild}>
             <EditRoundedIcon />
           </Button>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="Remove Build" arrow>
           <Button onClick={removeBuild}>
             <CloseRoundedIcon color="secondary" />

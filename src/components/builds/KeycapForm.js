@@ -22,6 +22,8 @@ export default function KeycapForm({
   materials,
   activeStep,
   setActiveStep,
+  submitBuild,
+  editBuild
 }) {
   const [keycapSculpt, setKeycapSculpt] = useState();
   const [keycapName, setKeycapName] = useState();
@@ -41,7 +43,6 @@ export default function KeycapForm({
 
   function handleNext() {
     setInputs(Object.assign(currentInputs, pageObject));
-    debugger
     if (Object.values(currentInputs).length === 1) {
       return (
         <Alert severity="error">
@@ -50,8 +51,8 @@ export default function KeycapForm({
         </Alert>
       );
     } else {
-      debugger
-      addBuild(currentInputs);
+      submitBuild(currentInputs)
+      // addBuild(currentInputs);
       setActiveStep(activeStep + 1);
     }
   }

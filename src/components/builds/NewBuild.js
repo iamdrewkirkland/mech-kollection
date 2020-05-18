@@ -34,6 +34,7 @@ export default function NewBuild({
   currentUserId,
   editBuild,
 }) {
+  console.log(editBuild);
   //variable to hold styles
   const classes = useStyles();
 
@@ -51,15 +52,7 @@ export default function NewBuild({
   const [buildStatus, setBuildStatus] = useState(null);
 
   //separating form inputs into new objects to be posted
-  // let buildObject = { ...buildInputs };
   const statusObject = { ...buildStatus };
-
-  //function to check if "editBuild" is empty and populate "buildInputs" accordingly
-  useEffect(() => {
-    if (Object.values(editBuild).length !== 0) {
-      setBuildInputs(editBuild);
-    }
-  }, [editBuild]);
 
   //state hook to check and set the current form step
   const [activeStep, setActiveStep] = useState(0);
@@ -73,6 +66,7 @@ export default function NewBuild({
       case 0:
         return (
           <BuildForm
+            editBuild={editBuild}
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             status={buildStatus}
@@ -105,11 +99,13 @@ export default function NewBuild({
       case 3:
         return (
           <KeycapForm
+            editBuild={editBuild}
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             materials={materials}
             activeStep={activeStep}
             setActiveStep={setActiveStep}
+            submitBuild={submitBuild}
           />
         );
       default:
@@ -127,9 +123,6 @@ export default function NewBuild({
     setActiveStep(activeStep - 1);
   }
 
-  function clearEditBuild() {
-    editBuild = {};
-  }
   //function that designates all build data to appropriate resource
   function submitBuild() {
     if (
@@ -180,20 +173,6 @@ export default function NewBuild({
               {getStepContent(activeStep)}
               <div>
                 {activeStep !== 0 && <Button onClick={handleBack}>Back</Button>}
-                {/* <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    if (activeStep === steps.length - 1) {
-                      submitBuild();
-                      handleNext();
-                    } else {
-                      handleNext();
-                    }
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button> */}
               </div>
             </React.Fragment>
           )}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -12,7 +12,16 @@ export default function BuildForm({
   setStatus,
   currentInputs,
   setInputs,
+  editBuild,
 }) {
+  useEffect(() => {
+    if (Object.values(editBuild).length !== 0) {
+      setInputs(editBuild);
+    }
+  }, [editBuild, setInputs]);
+
+  console.log(editBuild);
+
   //establish input references to manage values
   let isActive = false;
   const activeStatus = useRef();
@@ -29,27 +38,26 @@ export default function BuildForm({
   }
 
   const pageObject = {
-      name: buildName,
-      buildWeight: parseInt(buildWeight),
-      description: buildDescription,
-    };
+    name: buildName,
+    buildWeight: parseInt(buildWeight),
+    description: buildDescription,
+  };
 
   // function that executes each time status is changed
-      function handleChange() {
-      
-        const newStatusObject = {
-          isActive: isActive,
-          label: activeStatus.current.value,
-        };
-        setStatus(Object.assign(currentStatusObjecct, newStatusObject));
-      }
+  function handleChange() {
+    const newStatusObject = {
+      isActive: isActive,
+      label: activeStatus.current.value,
+    };
+    setStatus(Object.assign(currentStatusObjecct, newStatusObject));
+  }
 
   function handleNext() {
-    if (isNaN(pageObject.buildWeight)){
-      delete pageObject.buildWeight
+    if (isNaN(pageObject.buildWeight)) {
+      delete pageObject.buildWeight;
     }
     setInputs(Object.assign(currentInputs, pageObject));
-    setActiveStep(activeStep + 1)
+    setActiveStep(activeStep + 1);
   }
 
   function handleNameChange(e) {
@@ -61,7 +69,6 @@ export default function BuildForm({
   function handleDescriptionChange(e) {
     setBuildDescription(e.target.value);
   }
-
 
   return (
     <>
@@ -109,11 +116,7 @@ export default function BuildForm({
           />
         </Grid>
       </Grid>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleNext}
-      >
+      <Button variant="contained" color="primary" onClick={handleNext}>
         NEXT
       </Button>
     </>
