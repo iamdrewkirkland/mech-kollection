@@ -41,13 +41,13 @@ export default function FriendForm({ toggleForm, currentUserId }) {
       <Grid container spacing={1}>
         <Grid item>
           <TextField
-            label="Search for a username"
+            label="Enter a username"
             inputRef={searchTerm}
             onChange={search}
           />
         </Grid>
         <Button variant="contained" color="primary" onClick={submitClose}>
-          ADD RESULT
+          ADD FRIEND
         </Button>
       </Grid>
     </>

@@ -24,8 +24,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FriendsView({ currentUserId }) {
   const classes = useStyles();
-  const [showForm, toggleShowForm] = useState(false);
-
+  const [showForm, setShowForm] = useState(false);
+  function toggleShowForm() {
+    setShowForm(!showForm);
+  }
   return (
     <>
       <div className={classes.flexGrow}>
@@ -41,24 +43,13 @@ export default function FriendsView({ currentUserId }) {
             </Typography>
             {showForm ? (
               <Tooltip title="Back">
-                <Fab
-                  color="secondary"
-                  onClick={() => {
-                    toggleShowForm();
-                  }}
-                >
+                <Fab size="small" color="secondary" onClick={toggleShowForm}>
                   <ArrowBackRoundedIcon />
                 </Fab>
               </Tooltip>
             ) : (
               <Tooltip title="Add New Friend">
-                <Fab
-                  size="small"
-                  color="action"
-                  onClick={() => {
-                    toggleShowForm();
-                  }}
-                >
+                <Fab size="small" color="action" onClick={toggleShowForm}>
                   <AddRoundedIcon />
                 </Fab>
               </Tooltip>
