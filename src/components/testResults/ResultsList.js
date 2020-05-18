@@ -14,16 +14,17 @@ export const ResultsList = React.memo(({ myBuilds, }) => {
   const { results } = useContext(ResultsContext);
 
   const [myResults, setMyResults] = useState([]);
-  // const [matchingBuild, setMatchingBuild] = useState({});
 
   useEffect(() => {
     const myFilteredResults = results.filter((result) => {
       const matchingBuildObject =
-        myBuilds.find((myBuild) => result.buildId === myBuild.id) || {};
+        myBuilds.find((myBuild) => result.buildId === myBuild.id);
       // setMatchingBuild(matchingBuildObject)
       return matchingBuildObject;
     });
+    debugger
     setMyResults(myFilteredResults);
+    debugger
   }, [myBuilds, results]);
 
   return (
