@@ -82,8 +82,8 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
     <>
       <Typography variant="h4">Results Info</Typography>
       <Grid container spacing={2}>
-        <FormControl component="fieldset" error={error}>
-          <Grid>
+        <FormControl component="div" error={error}>
+          <Grid item>
             <InputLabel id="build">Build</InputLabel>
             <Select labelId="build" onChange={handleBuildChange}>
               {myCollection.map((build) => (
@@ -102,7 +102,7 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
               ))}
             </Select>
           </Grid>
-          <Grid>
+          <Grid item>
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <DateTimePicker
                 value={selectedDate}
@@ -127,7 +127,7 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
             />
           </Grid>
 
-          <Grid>
+          <Grid item>
             <FormLabel>Website</FormLabel>
             <RadioGroup
               name="website"
@@ -151,15 +151,17 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
             </FormHelperText>
           </Grid>
         </FormControl>
+              <Grid item>
 
         <Button
           variant="contained"
           color="primary"
           type="submit"
           onClick={handleSubmit}
-        >
+          >
           Submit
         </Button>
+          </Grid>
       </Grid>
     </>
   );
