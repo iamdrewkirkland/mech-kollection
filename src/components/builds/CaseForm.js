@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import { Select, InputLabel, MenuItem, Button } from "@material-ui/core";
 
 export default function CaseForm({
   currentInputs,
   setInputs,
   materials,
   layouts,
+  activeStep,
+  setActiveStep,
 }) {
-
   const [caseName, setCaseName] = useState();
   const [caseDesigner, setCaseDesigner] = useState();
   const [caseColor, setCaseColor] = useState();
@@ -31,35 +32,29 @@ export default function CaseForm({
     plateMaterialId: plateMaterialId,
     caseLayoutId: layoutId,
   };
-  const setPageInputs = () => {
+  const handleNext = () => {
     setInputs(Object.assign(currentInputs, pageObject));
+    setActiveStep(activeStep + 1);
   };
-  
+
   function handleNameChange(e) {
     setCaseName(e.target.value);
-    setPageInputs();
   }
   function handleColorChange(e) {
     setCaseColor(e.target.value);
-    setPageInputs();
   }
   function handleDesignerChange(e) {
     setCaseDesigner(e.target.value);
-    setPageInputs();
   }
   function handleCaseMaterialChange(e) {
     setCaseMaterialId(e.target.value);
-    setPageInputs();
   }
   function handleLayoutChange(e) {
     setLayoutId(e.target.value);
-    setPageInputs();
   }
   function handlePlateMaterialChange(e) {
     setPlateMaterialId(e.target.value);
-    setPageInputs();
   }
-
 
   return (
     <>
@@ -132,6 +127,9 @@ export default function CaseForm({
           </Select>
         </Grid>
       </Grid>
+      <Button variant="contained" color="primary" onClick={handleNext}>
+        NEXT
+      </Button>
     </>
   );
 }

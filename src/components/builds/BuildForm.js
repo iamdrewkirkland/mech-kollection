@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -13,15 +13,14 @@ export default function BuildForm({
   currentInputs,
   setInputs,
 }) {
-  //establish input references to grab values
-  const buildName = useRef();
-  const buildWeight = useRef();
-  const buildDescription = useRef();
+  //establish input references to manage values
   let isActive = false;
   const activeStatus = useRef();
+  const [buildName, setBuildName] = useState();
+  const [buildDescription, setBuildDescription] = useState();
+  const [buildWeight, setBuildWeight] = useState();
 
   //deconstruct all current inputs from previous form pages
-  const currentBuildObject = { ...currentInputs };
   const currentStatusObjecct = { ...status };
 
   //function to control value of toggle
@@ -29,29 +28,37 @@ export default function BuildForm({
     return (isActive = !isActive);
   }
 
-  //function that executes each time an input is changed
-  function handleChange() {
-     
- const newBuildObject = {
-  name: buildName.current.value,
-  buildWeight: parseInt(buildWeight.current.value),
-  description: buildDescription.current.value,
-};
-
-    const newStatusObject = {
-      isActive: isActive,
-      label: activeStatus.current.value,
+  const pageObject = {
+      name: buildName,
+      buildWeight: parseInt(buildWeight),
+      description: buildDescription,
     };
-    setStatus(Object.assign(currentStatusObjecct, newStatusObject));
+
+  // function that executes each time status is changed
+      function handleChange() {
+      
+        const newStatusObject = {
+          isActive: isActive,
+          label: activeStatus.current.value,
+        };
+        setStatus(Object.assign(currentStatusObjecct, newStatusObject));
+      }
+
+  function handleNext() {
+    setInputs(Object.assign(currentInputs, pageObject));
+    setActiveStep(activeStep + 1)
   }
 
-  // function handleNext() {
-  //   debugger
-  //   setInputs(Object.assign(currentBuildObject, newBuildObject));
-  //   debugger
-  //   setActiveStep(activeStep + 1)
-    
-  // }
+  function handleNameChange(e) {
+    setBuildName(e.target.value);
+  }
+  function handleWeightChange(e) {
+    setBuildWeight(e.target.value);
+  }
+  function handleDescriptionChange(e) {
+    setBuildDescription(e.target.value);
+  }
+
 
   return (
     <>
@@ -60,22 +67,22 @@ export default function BuildForm({
         <Grid item>
           <TextField
             label="Build Name"
-            onChange={handleChange}
-            inputRef={buildName}
+            onChange={handleNameChange}
+            value={buildName}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Build Description"
-            onChange={handleChange}
-            inputRef={buildDescription}
+            onChange={handleDescriptionChange}
+            value={buildDescription}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Build Weight (grams)"
-            inputRef={buildWeight}
-            onChange={handleChange}
+            onChange={handleWeightChange}
+            value={buildWeight}
           />
         </Grid>
         <Grid item>
@@ -100,12 +107,12 @@ export default function BuildForm({
         </Grid>
       </Grid>
       <Button
-                  variant="contained"
-                  color="primary"
-                  // onClick={handleNext}
-                >
-                  DOESN'T WORK
-                </Button>
+        variant="contained"
+        color="primary"
+        onClick={handleNext}
+      >
+        NEXT
+      </Button>
     </>
   );
 }
