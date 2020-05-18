@@ -22,9 +22,7 @@ export const ResultsList = React.memo(({ myBuilds, }) => {
       // setMatchingBuild(matchingBuildObject)
       return matchingBuildObject;
     });
-    debugger
     setMyResults(myFilteredResults);
-    debugger
   }, [myBuilds, results]);
 
   return (

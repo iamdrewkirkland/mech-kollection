@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Container } from "@material-ui/core";
+import { makeStyles, Container, AppBar, Toolbar, Typography } from "@material-ui/core";
 import Build from "./Build";
 /**
  *  Component: BuildList
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "row wrap",
   },
+  fixedHeight: {
+    height: 50,
+  },
 }));
 
 export const BuildList = React.memo(
@@ -22,6 +25,7 @@ export const BuildList = React.memo(
     return (
       <>
         <Container className={classes.buildList}>
+           
           {myBuilds.map((build) => (
             <Build
               key={build.name}
