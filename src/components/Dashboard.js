@@ -16,6 +16,7 @@ import FriendsView from "./friends/FriendView";
 import { Button } from "@material-ui/core";
 import { BuildContext } from "./builds/BuildDataProvider";
 import { useEffect } from "react";
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 // drawer width for theme and layout control
 const drawerWidth = 210;
@@ -87,7 +88,7 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
             <ListItem>Test Results</ListItem>
             <ListItem>Friends</ListItem>
           </List>
-          <Button variant="contained" onClick={logout}>
+          <Button variant="contained" onClick={logout} startIcon={<ExitToAppRoundedIcon />}>
             Logout
           </Button>
         </Drawer>
