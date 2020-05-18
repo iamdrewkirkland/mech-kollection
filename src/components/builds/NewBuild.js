@@ -55,12 +55,14 @@ export default function NewBuild({
   const statusObject = { ...buildStatus };
 
   //function to check if "editBuild" is empty and populate "buildInputs" accordingly
-
   useEffect(() => {
     if (Object.values(editBuild).length !== 0) {
       setBuildInputs(editBuild);
     }
   }, [editBuild]);
+
+  //state hook to check and set the current form step
+  const [activeStep, setActiveStep] = useState(0);
 
   //array declaring the name and order of the form steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
@@ -75,6 +77,8 @@ export default function NewBuild({
             setInputs={setBuildInputs}
             status={buildStatus}
             setStatus={setBuildStatus}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 1:
@@ -100,6 +104,8 @@ export default function NewBuild({
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             materials={materials}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       default:
@@ -107,12 +113,13 @@ export default function NewBuild({
     }
   }
 
-  //state hook to check and set the current form step
-  const [activeStep, setActiveStep] = useState(0);
-
   //function for "next" button action. on final step, submit newBuild for post.
   function handleNext() {
+    debugger;
+    console.log(buildInputs);
+    debugger;
     setActiveStep(activeStep + 1);
+    debugger;
   }
 
   //function for "back" button action

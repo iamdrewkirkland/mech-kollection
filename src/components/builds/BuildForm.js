@@ -3,9 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Switch } from "@material-ui/core";
+import { Switch, Button } from "@material-ui/core";
 
 export default function BuildForm({
+  activeStep,
+  setActiveStep,
   status,
   setStatus,
   currentInputs,
@@ -30,18 +32,26 @@ export default function BuildForm({
   //function that executes each time an input is changed
   function handleChange() {
      
-    const newBuildObject = {
-      name: buildName.current.value,
-      buildWeight: parseInt(buildWeight.current.value),
-      description: buildDescription.current.value,
-    };
+ const newBuildObject = {
+  name: buildName.current.value,
+  buildWeight: parseInt(buildWeight.current.value),
+  description: buildDescription.current.value,
+};
+
     const newStatusObject = {
       isActive: isActive,
       label: activeStatus.current.value,
     };
-    setInputs(Object.assign(currentBuildObject, newBuildObject));
     setStatus(Object.assign(currentStatusObjecct, newStatusObject));
   }
+
+  // function handleNext() {
+  //   debugger
+  //   setInputs(Object.assign(currentBuildObject, newBuildObject));
+  //   debugger
+  //   setActiveStep(activeStep + 1)
+    
+  // }
 
   return (
     <>
@@ -89,6 +99,13 @@ export default function BuildForm({
           />
         </Grid>
       </Grid>
+      <Button
+                  variant="contained"
+                  color="primary"
+                  // onClick={handleNext}
+                >
+                  DOESN'T WORK
+                </Button>
     </>
   );
 }
