@@ -54,7 +54,7 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
   }
   return (
     <>
-      <div className={classes.flexGrow}>
+      <div>
         <AppBar
           position="static"
           color="primary"

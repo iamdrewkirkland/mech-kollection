@@ -34,7 +34,7 @@ export const ResultsView = React.memo(
 
     return (
       <>
-        <div className={classes.flexGrow}>
+        <div >
           <AppBar
             position="static"
             color="primary"
