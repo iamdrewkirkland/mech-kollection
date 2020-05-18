@@ -48,10 +48,10 @@ export default function NewBuild({
    */
   const [buildStatus, setBuildStatus] = useState({});
   const [statusId, setStatusId] = useState(null);
-      const [buildInputs, setBuildInputs] = useState({
-        userId: currentUserId,
-        statusId:statusId
-      });
+  const [buildInputs, setBuildInputs] = useState({
+    userId: currentUserId,
+    statusId: statusId,
+  });
 
   //separating form inputs into new objects to be posted
   const buildObject = { ...buildInputs };
@@ -68,6 +68,7 @@ export default function NewBuild({
   //function to check if buildStatus contains values
   useEffect(() => {
     if (Object.values(buildStatus).length !== 0) {
+      debugger;
       const existingStatusId = allStatuses.find((status) => {
         if (
           status.label === buildStatus.label &&
@@ -77,8 +78,8 @@ export default function NewBuild({
         } else {
           addStatus(buildStatus).then((response) => setStatusId(response.id));
         }
-        return setStatusId(existingStatusId);
       });
+      return setStatusId(existingStatusId);
     }
   }, [addStatus, allStatuses, buildStatus]);
 

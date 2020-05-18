@@ -5,6 +5,7 @@ import { BuildList } from "./BuildList";
 import { MaterialContext } from "../materials/MaterialProvider";
 import { LayoutContext } from "../layouts/LayoutProvider";
 import { SwitchTypeContext } from "../switches/SwitchTypeProvider";
+import { StatusContext } from "../statuses/StatusProvider";
 export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
   const [showForm, setShowForm] = useState(false);
   const [editBuild, setEditBuild] = useState({});
@@ -12,7 +13,7 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
   const { materials } = useContext(MaterialContext);
   const { switchTypes } = useContext(SwitchTypeContext);
   const { layouts } = useContext(LayoutContext);
-  const { statuses } = useContext(LayoutContext);
+  const { statuses } = useContext(StatusContext);
 
   useEffect(() => {
     setAllStatuses(statuses);
