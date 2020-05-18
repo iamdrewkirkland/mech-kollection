@@ -34,6 +34,7 @@ export default function NewBuild({
   currentUserId,
   editBuild,
 }) {
+  console.log(editBuild);
   //variable to hold styles
   const classes = useStyles();
 
@@ -51,16 +52,10 @@ export default function NewBuild({
   const [buildStatus, setBuildStatus] = useState(null);
 
   //separating form inputs into new objects to be posted
-  const buildObject = { ...buildInputs };
   const statusObject = { ...buildStatus };
 
-  //function to check if "editBuild" is empty and populate "buildInputs" accordingly
-
-  useEffect(() => {
-    if (Object.values(editBuild).length !== 0) {
-      setBuildInputs(editBuild);
-    }
-  }, [editBuild]);
+  //state hook to check and set the current form step
+  const [activeStep, setActiveStep] = useState(0);
 
   //array declaring the name and order of the form steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
@@ -71,10 +66,13 @@ export default function NewBuild({
       case 0:
         return (
           <BuildForm
+            editBuild={editBuild}
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             status={buildStatus}
             setStatus={setBuildStatus}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 1:
@@ -84,6 +82,8 @@ export default function NewBuild({
             setInputs={setBuildInputs}
             materials={materials}
             layouts={layouts}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 2:
@@ -92,14 +92,20 @@ export default function NewBuild({
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             switchTypes={switchTypes}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 3:
         return (
           <KeycapForm
+            editBuild={editBuild}
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             materials={materials}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
+            submitBuild={submitBuild}
           />
         );
       default:
@@ -107,16 +113,9 @@ export default function NewBuild({
     }
   }
 
-  //state hook to check and set the current form step
-  const [activeStep, setActiveStep] = useState(0);
-
   //function for "next" button action. on final step, submit newBuild for post.
   function handleNext() {
-    if (activeStep === steps.length) {
-      submitBuild();
-    } else {
-      setActiveStep(activeStep + 1);
-    }
+    setActiveStep(activeStep + 1);
   }
 
   //function for "back" button action
@@ -124,25 +123,22 @@ export default function NewBuild({
     setActiveStep(activeStep - 1);
   }
 
-  function clearEditBuild() {
-    editBuild = {};
-  }
   //function that designates all build data to appropriate resource
   function submitBuild() {
     if (
       Object.values(statusObject).length !== 0 &&
-      Object.values(buildObject).length !== 1 &&
+      Object.values(buildInputs).length !== 1 &&
       Object.values(editBuild).length === 0
     ) {
       addStatus(statusObject);
-      addBuild(buildObject);
+      addBuild(buildInputs);
     } else if (
       Object.values(statusObject).length === 0 &&
       Object.values(editBuild).length === 0
     ) {
-      addBuild(buildObject);
+      addBuild(buildInputs);
     } else if (Object.values(editBuild).length !== 0) {
-      updateBuild(buildObject);
+      updateBuild(buildInputs);
     } else {
       return (
         <Alert severity="error">
@@ -177,20 +173,6 @@ export default function NewBuild({
               {getStepContent(activeStep)}
               <div>
                 {activeStep !== 0 && <Button onClick={handleBack}>Back</Button>}
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    if (activeStep === steps.length - 1) {
-                      submitBuild(buildObject);
-                      handleNext();
-                    } else {
-                      handleNext();
-                    }
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
               </div>
             </React.Fragment>
           )}

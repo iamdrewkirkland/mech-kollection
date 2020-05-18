@@ -62,7 +62,6 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
     if (radioValue === null) {
       setError(true);
     } else {
-      debugger;
       addResults(newResultObject);
       toggleForm();
     }
@@ -159,7 +158,7 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
           type="submit"
           onClick={handleSubmit}
         >
-          ADD RESULT
+          Submit
         </Button>
       </Grid>
     </>

@@ -1,27 +1,43 @@
-import React, { useRef, useContext } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-import { Select, InputLabel, MenuItem } from "@material-ui/core";
+import { Select, InputLabel, MenuItem, Button } from "@material-ui/core";
 
-export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
-  const switchName = useRef();
-  const switchWeight = useRef();
-  const switchLube = useRef();
-  const switchType = useRef();
+export default function SwitchForm({ currentInputs, setInputs, switchTypes, activeStep, setActiveStep }) {
+  const [switchName, setSwitchName] = useState();
+  const [switchWeight, setSwitchWeight] = useState(null);
+  const [switchLube, setSwitchLube] = useState();
+  const [switchTypeId, setSwitchTypeId] = useState();
 
-  let currentBuildObject = { ...currentInputs };
-
-  const handleChange = () => {
-    const newBuildObject = {
-      switchName: switchName.current.value,
-      switchWeight: parseInt(switchWeight.current.value),
-      switchLube: switchLube.current.value,
-      switchTypeId: switchType.current.value,
-    };
-    setInputs(Object.assign(currentBuildObject, newBuildObject));
+  const pageObject = {
+    switchName: switchName,
+    switchWeight: parseInt(switchWeight),
+    switchLube: switchLube,
+    switchTypeId: switchTypeId,
   };
 
+  function handleNext() {
+    if (isNaN(pageObject.switchWeight)){
+      delete pageObject.switchWeight
+    }
+    setInputs(Object.assign(currentInputs, pageObject));
+    setActiveStep(activeStep + 1);
+
+  }
+
+  function handleNameChange(e) {
+    setSwitchName(e.target.value);
+  }
+  function handleWeightChange(e) {
+    setSwitchWeight(e.target.value);
+  }
+  function handleLubeChange(e) {
+    setSwitchLube(e.target.value);
+  }
+  function handleTypeChange(e) {
+    setSwitchTypeId(e.target.value);
+  }
   return (
     <>
       <Typography variant="h4">Switches</Typography>
@@ -30,17 +46,17 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
           <TextField
             required
             label="Name"
-            onChange={handleChange}
-            inputRef={switchName}
+            onChange={handleNameChange}
+            value={switchName}
           />
         </Grid>
-        <Grid>
+        <Grid item>
           <InputLabel id="switchType">Type</InputLabel>
           <Select
             required
             labelId="switchType"
-            onChange={handleChange}
-            inputRef={switchType}
+            onChange={handleTypeChange}
+            value={switchTypeId}
           >
             {switchTypes.map((type) => (
               <MenuItem key={type.name} value={type.id}>
@@ -52,18 +68,21 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes }) {
         <Grid item>
           <TextField
             label="Weight (grams)"
-            onChange={handleChange}
-            inputRef={switchWeight}
+            onChange={handleWeightChange}
+            value={switchWeight}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Lube"
-            onChange={handleChange}
-            inputRef={switchLube}
+            onChange={handleLubeChange}
+            value={switchLube}
           />
         </Grid>
       </Grid>
+      <Button variant="contained" color="primary" onClick={handleNext}>
+        NEXT
+      </Button>
     </>
   );
 }

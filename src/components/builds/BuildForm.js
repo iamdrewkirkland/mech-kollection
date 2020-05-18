@@ -1,25 +1,35 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Switch } from "@material-ui/core";
+import { Switch, Button } from "@material-ui/core";
 
 export default function BuildForm({
+  activeStep,
+  setActiveStep,
   status,
   setStatus,
   currentInputs,
   setInputs,
+  editBuild,
 }) {
-  //establish input references to grab values
-  const buildName = useRef();
-  const buildWeight = useRef();
-  const buildDescription = useRef();
+  useEffect(() => {
+    if (Object.values(editBuild).length !== 0) {
+      setInputs(editBuild);
+    }
+  }, [editBuild, setInputs]);
+
+  console.log(editBuild);
+
+  //establish input references to manage values
   let isActive = false;
   const activeStatus = useRef();
+  const [buildName, setBuildName] = useState();
+  const [buildDescription, setBuildDescription] = useState();
+  const [buildWeight, setBuildWeight] = useState(null);
 
   //deconstruct all current inputs from previous form pages
-  const currentBuildObject = { ...currentInputs };
   const currentStatusObjecct = { ...status };
 
   //function to control value of toggle
@@ -27,20 +37,37 @@ export default function BuildForm({
     return (isActive = !isActive);
   }
 
-  //function that executes each time an input is changed
+  const pageObject = {
+    name: buildName,
+    buildWeight: parseInt(buildWeight),
+    description: buildDescription,
+  };
+
+  // function that executes each time status is changed
   function handleChange() {
-     
-    const newBuildObject = {
-      name: buildName.current.value,
-      buildWeight: parseInt(buildWeight.current.value),
-      description: buildDescription.current.value,
-    };
     const newStatusObject = {
       isActive: isActive,
       label: activeStatus.current.value,
     };
-    setInputs(Object.assign(currentBuildObject, newBuildObject));
     setStatus(Object.assign(currentStatusObjecct, newStatusObject));
+  }
+
+  function handleNext() {
+    if (isNaN(pageObject.buildWeight)) {
+      delete pageObject.buildWeight;
+    }
+    setInputs(Object.assign(currentInputs, pageObject));
+    setActiveStep(activeStep + 1);
+  }
+
+  function handleNameChange(e) {
+    setBuildName(e.target.value);
+  }
+  function handleWeightChange(e) {
+    setBuildWeight(e.target.value);
+  }
+  function handleDescriptionChange(e) {
+    setBuildDescription(e.target.value);
   }
 
   return (
@@ -50,22 +77,22 @@ export default function BuildForm({
         <Grid item>
           <TextField
             label="Build Name"
-            onChange={handleChange}
-            inputRef={buildName}
+            onChange={handleNameChange}
+            value={buildName}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Build Description"
-            onChange={handleChange}
-            inputRef={buildDescription}
+            onChange={handleDescriptionChange}
+            value={buildDescription}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Build Weight (grams)"
-            inputRef={buildWeight}
-            onChange={handleChange}
+            onChange={handleWeightChange}
+            value={buildWeight}
           />
         </Grid>
         <Grid item>
@@ -89,6 +116,9 @@ export default function BuildForm({
           />
         </Grid>
       </Grid>
+      <Button variant="contained" color="primary" onClick={handleNext}>
+        NEXT
+      </Button>
     </>
   );
 }
