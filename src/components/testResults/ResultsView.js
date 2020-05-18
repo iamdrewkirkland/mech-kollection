@@ -34,7 +34,7 @@ export const ResultsView = React.memo(
 
     return (
       <>
-        <div >
+        <div>
           <AppBar
             position="static"
             color="primary"
@@ -47,7 +47,7 @@ export const ResultsView = React.memo(
               </Typography>
               {showForm ? (
                 <Tooltip title="Back">
-                  <Fab color="secondary" onClick={toggleForm}>
+                  <Fab color="secondary" size="small" onClick={toggleForm}>
                     <ArrowBackRoundedIcon />
                   </Fab>
                 </Tooltip>

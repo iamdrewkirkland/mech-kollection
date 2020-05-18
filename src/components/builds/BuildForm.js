@@ -95,7 +95,7 @@ export default function BuildForm({
             value={buildWeight}
           />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <FormControlLabel
             label="Active"
             control={
@@ -114,7 +114,7 @@ export default function BuildForm({
             onChange={handleChange}
             inputRef={activeStatus}
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Button variant="contained" color="primary" onClick={handleNext}>
         NEXT

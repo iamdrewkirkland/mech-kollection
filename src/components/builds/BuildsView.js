@@ -68,6 +68,8 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
             {showForm ? (
               <Tooltip title="Back">
                 <Fab
+                  size="small"
+
                   color="secondary"
                   onClick={() => {
                     setEditBuild({});
