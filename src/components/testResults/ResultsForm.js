@@ -158,7 +158,7 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
           type="submit"
           onClick={handleSubmit}
         >
-          ADD RESULT
+          Submit
         </Button>
       </Grid>
     </>

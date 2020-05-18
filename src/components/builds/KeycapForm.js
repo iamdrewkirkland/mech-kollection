@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -11,13 +11,10 @@ import {
   FormControl,
   RadioGroup,
   FormHelperText,
+  FormLabel,
 } from "@material-ui/core";
 
-export default function KeycapForm({
-  currentInputs,
-  setInputs,
-  materials,
-}) {
+export default function KeycapForm({ currentInputs, setInputs, materials }) {
   const [keycapSculpt, setKeycapSculpt] = useState();
   const [keycapName, setKeycapName] = useState();
   const [keycapProfile, setKeycapProfile] = useState();
@@ -53,7 +50,6 @@ export default function KeycapForm({
 
   function handleSculptChange(e) {
     setKeycapSculpt(e.target.value);
-    setError(false);
     setPageInputs();
   }
   function handleNameChange(e) {
@@ -72,61 +68,62 @@ export default function KeycapForm({
   return (
     <>
       <Typography variant="h4">Keycaps</Typography>
-      <Grid container spacing={1}>
-        <Grid item>
-          <TextField
-            required
-            label="Name"
-            onChange={handleNameChange}
-            value={keycapName}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            label="Profile"
-            onChange={handleProfileChange}
-            value={keycapProfile}
-          />
-        </Grid>
-        <Grid>
-          <InputLabel id="keycapMaterial"> Keycap Material</InputLabel>
-          <Select
-            labelId="keycapMaterial"
-            onChange={handleMaterialChange}
-            value={keycapMaterialId}
-          >
-            {filterMaterials("keycap").map((material) => (
-              <MenuItem key={material.name} value={material.id}>
-                {material.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid>
-          <FormControl component="fieldset">
+      <Grid container spacing={2}>
+          <Grid item>
+            <TextField
+              required
+              label="Name"
+              onChange={handleNameChange}
+              value={keycapName}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              label="Profile"
+              onChange={handleProfileChange}
+              value={keycapProfile}
+            />
+          </Grid>
+          <Grid item>
+            <InputLabel id="keycapMaterial"> Keycap Material</InputLabel>
+            <Select
+              labelId="keycapMaterial"
+              onChange={handleMaterialChange}
+              value={keycapMaterialId}
+            >
+              {filterMaterials("keycap").map((material) => (
+                <MenuItem key={material.name} value={material.id}>
+                  {material.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Grid>
+          <Grid item>
+            <FormLabel>Sculpted?</FormLabel>
             <RadioGroup
               name="sculpt"
               value={keycapSculpt}
               onChange={handleSculptChange}
             >
               <FormControlLabel
+                key="sculpted"
                 label="Sculpted"
                 labelPlacement="end"
-                value={true}
+                value="Sculpted"
                 control={<Radio />}
               />
               <FormControlLabel
+                key="unsculpted"
                 label="Unsculpted"
                 labelPlacement="end"
-                value={false}
+                value="Unsculpted"
                 control={<Radio />}
               />
             </RadioGroup>
             <FormHelperText color="secondary">
               {error ? "Please selection an option." : null}
             </FormHelperText>
-          </FormControl>
-        </Grid>
+          </Grid>
       </Grid>
     </>
   );

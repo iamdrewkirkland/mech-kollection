@@ -94,7 +94,7 @@ const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
           title={inputCheck("name") ? `${build.name}` : `${build.caseName}`}
           subheader={inputCheck("description") ? `${build.description}` : null}
         />
-        <Chip label="status" variant="outlined" />
+        {/* <Chip label="status" variant="outlined" /> */}
         <Button onClick={editBuild}>
           <EditRoundedIcon />
         </Button>
