@@ -33,6 +33,7 @@ export default function NewBuild({
   switchTypes,
   currentUserId,
   editBuild,
+  allStatuses,
 }) {
   //variable to hold styles
   const classes = useStyles();
@@ -42,25 +43,44 @@ export default function NewBuild({
   const { addStatus } = useContext(StatusContext);
 
   /** STATE HOOKS
-   *    state hook to set and contain the form input values.
-   *    pass to each child component to set and return values.
+   *    State hook to set and contain the form input values.
+   *    Pass to each child component to set and return values.
    */
-  const [buildInputs, setBuildInputs] = useState({
-    userId: currentUserId,
-  });
-  const [buildStatus, setBuildStatus] = useState(null);
+  const [buildStatus, setBuildStatus] = useState({});
+  const [statusId, setStatusId] = useState(null);
+      const [buildInputs, setBuildInputs] = useState({
+        userId: currentUserId,
+        statusId:statusId
+      });
 
   //separating form inputs into new objects to be posted
   const buildObject = { ...buildInputs };
-  const statusObject = { ...buildStatus };
 
-  //function to check if "editBuild" is empty and populate "buildInputs" accordingly
+  // const statusObject = { ...buildStatus };
 
+  //on mount, check if "editBuild" is empty and populate "buildInputs" accordingly
   useEffect(() => {
     if (Object.values(editBuild).length !== 0) {
       setBuildInputs(editBuild);
     }
   }, [editBuild]);
+
+  //function to check if buildStatus contains values
+  useEffect(() => {
+    if (Object.values(buildStatus).length !== 0) {
+      const existingStatusId = allStatuses.find((status) => {
+        if (
+          status.label === buildStatus.label &&
+          status.isActive === buildStatus.isActive
+        ) {
+          return status.id;
+        } else {
+          addStatus(buildStatus).then((response) => setStatusId(response.id));
+        }
+        return setStatusId(existingStatusId);
+      });
+    }
+  }, [addStatus, allStatuses, buildStatus]);
 
   //array declaring the name and order of the form steps
   const steps = ["Build Details", "Case", "Switches", "Keycaps"];
@@ -127,23 +147,16 @@ export default function NewBuild({
   function clearEditBuild() {
     editBuild = {};
   }
-  
+
   //function that designates all build data to appropriate resource
   function submitBuild() {
     if (
-      Object.values(statusObject).length !== 0 &&
       Object.values(buildObject).length !== 1 &&
       Object.values(editBuild).length === 0
     ) {
-      addStatus(statusObject);
       addBuild(buildObject);
-    } else if (
-      Object.values(statusObject).length === 0 &&
-      Object.values(editBuild).length === 0
-    ) {
-      addBuild(buildObject);
-    } else if(Object.values(editBuild).length !== 0) {
-      updateBuild(buildObject)
+    } else if (Object.values(editBuild).length !== 0) {
+      updateBuild(buildObject);
     }
   }
   return (

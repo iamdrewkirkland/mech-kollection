@@ -30,6 +30,17 @@ export const StatusProvider = (props) => {
         })
             .then(getStatus)
     }
+    const updateStatus = status => {
+        return fetch(`http://localhost:8088/statuses/${status.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "cache-control":"no-cache"
+            },
+            body: JSON.stringify(status)
+        })
+            .then(getStatus)
+    }
 
     /*
         Load all builds when the component is mounted. Ensure that
@@ -45,7 +56,7 @@ export const StatusProvider = (props) => {
 
     return (
         <StatusContext.Provider value={{
-            statuses, addStatus, getStatus
+            statuses, addStatus, getStatus, updateStatus
         }}>
             {props.children}
         </StatusContext.Provider>

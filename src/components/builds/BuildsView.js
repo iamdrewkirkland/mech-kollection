@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "@material-ui/core";
 import NewBuild from "./NewBuild";
 import { BuildList } from "./BuildList";
@@ -8,22 +8,29 @@ import { SwitchTypeContext } from "../switches/SwitchTypeProvider";
 export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
   const [showForm, setShowForm] = useState(false);
   const [editBuild, setEditBuild] = useState({});
+  const [allStatuses, setAllStatuses] = useState([]);
   const { materials } = useContext(MaterialContext);
   const { switchTypes } = useContext(SwitchTypeContext);
   const { layouts } = useContext(LayoutContext);
+  const { statuses } = useContext(LayoutContext);
 
-  function editThisBuild(build){
-    setEditBuild({...build})
-    toggleShowForm()
+  useEffect(() => {
+    setAllStatuses(statuses);
+  }, [statuses]);
+
+  function editThisBuild(build) {
+    setEditBuild({ ...build });
+    toggleShowForm();
   }
 
-  function toggleShowForm(){
-    setShowForm(!showForm)
+  function toggleShowForm() {
+    setShowForm(!showForm);
   }
   return (
     <>
       {showForm ? (
         <NewBuild
+          allStatuses={allStatuses}
           materials={materials}
           layouts={layouts}
           switchTypes={switchTypes}
@@ -45,7 +52,7 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
         variant="contained"
         color="primary"
         onClick={() => {
-          setEditBuild({})
+          setEditBuild({});
           toggleShowForm();
         }}
       >
