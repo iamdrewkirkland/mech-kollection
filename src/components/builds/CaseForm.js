@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -10,31 +10,56 @@ export default function CaseForm({
   materials,
   layouts,
 }) {
-  //references to user input fields
-  const caseName = useRef();
-  const caseColor = useRef();
-  const caseDesigner = useRef();
-  const caseMaterial = useRef();
-  const plateMaterial = useRef();
-  const layout = useRef();
+
+  const [caseName, setCaseName] = useState();
+  const [caseDesigner, setCaseDesigner] = useState();
+  const [caseColor, setCaseColor] = useState();
+  const [caseMaterialId, setCaseMaterialId] = useState();
+  const [plateMaterialId, setPlateMaterialId] = useState();
+  const [layoutId, setLayoutId] = useState();
 
   function filterMaterials(resource) {
     return materials.filter((material) => material.resource === resource);
   }
 
   //placeholder for value of current inputs (values retained when BACK button is used)
-  let currentBuildObject = { ...currentInputs };
-
-  const handleChange = () => {
-    const newBuildObject = {
-      caseName: caseName.current.value,
-      caseColor: caseColor.current.value,
-      caseDesigner: caseDesigner.current.value,
-      caseMaterialId: caseMaterial.current.value,
-      caseLayoutId: layout.current.value,
-    };
-    setInputs(Object.assign(currentBuildObject, newBuildObject));
+  const pageObject = {
+    caseName: caseName,
+    caseColor: caseColor,
+    caseDesigner: caseDesigner,
+    caseMaterialId: caseMaterialId,
+    plateMaterialId: plateMaterialId,
+    caseLayoutId: layoutId,
   };
+  const setPageInputs = () => {
+    setInputs(Object.assign(currentInputs, pageObject));
+  };
+  
+  function handleNameChange(e) {
+    setCaseName(e.target.value);
+    setPageInputs();
+  }
+  function handleColorChange(e) {
+    setCaseColor(e.target.value);
+    setPageInputs();
+  }
+  function handleDesignerChange(e) {
+    setCaseDesigner(e.target.value);
+    setPageInputs();
+  }
+  function handleCaseMaterialChange(e) {
+    setCaseMaterialId(e.target.value);
+    setPageInputs();
+  }
+  function handleLayoutChange(e) {
+    setLayoutId(e.target.value);
+    setPageInputs();
+  }
+  function handlePlateMaterialChange(e) {
+    setPlateMaterialId(e.target.value);
+    setPageInputs();
+  }
+
 
   return (
     <>
@@ -44,32 +69,32 @@ export default function CaseForm({
           <TextField
             required
             label="Name"
-            onChange={handleChange}
-            inputRef={caseName}
+            value={caseName}
+            onChange={handleNameChange}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Color"
-            onChange={handleChange}
-            inputRef={caseColor}
+            onChange={handleColorChange}
+            value={caseColor}
           />
         </Grid>
         <Grid item>
           <TextField
             label="Designer"
-            onChange={handleChange}
-            inputRef={caseDesigner}
+            onChange={handleDesignerChange}
+            value={caseDesigner}
           />
         </Grid>
 
-        <Grid>
+        <Grid item>
           <InputLabel id="layout">Layout</InputLabel>
           <Select
             required
             labelId="layout"
-            onChange={handleChange}
-            inputRef={layout}
+            onChange={handleLayoutChange}
+            value={layoutId}
           >
             {layouts.map((layout) => (
               <MenuItem key={layout.name} value={layout.id}>
@@ -78,12 +103,12 @@ export default function CaseForm({
             ))}
           </Select>
         </Grid>
-        <Grid>
+        <Grid item>
           <InputLabel id="caseMaterial">Case Material</InputLabel>
           <Select
             labelId="caseMaterial"
-            onChange={handleChange}
-            inputRef={caseMaterial}
+            onChange={handleCaseMaterialChange}
+            value={caseMaterialId}
           >
             {filterMaterials("case").map((material) => (
               <MenuItem key={material.name} value={material.id}>
@@ -92,12 +117,12 @@ export default function CaseForm({
             ))}
           </Select>
         </Grid>
-        <Grid>
+        <Grid item>
           <InputLabel id="plateMaterial">Plate Material</InputLabel>
           <Select
             labelId="plateMaterial"
-            onChange={handleChange}
-            inputRef={plateMaterial}
+            onChange={handlePlateMaterialChange}
+            value={plateMaterialId}
           >
             {filterMaterials("plate").map((material) => (
               <MenuItem key={material.name} value={material.id}>

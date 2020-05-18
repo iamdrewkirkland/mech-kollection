@@ -8,9 +8,7 @@ import {
   MenuItem,
   FormControlLabel,
   Radio,
-  FormControl,
   RadioGroup,
-  FormHelperText,
   FormLabel,
 } from "@material-ui/core";
 
@@ -19,7 +17,6 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
   const [keycapName, setKeycapName] = useState();
   const [keycapProfile, setKeycapProfile] = useState();
   const [keycapMaterialId, setKeycapMaterialId] = useState();
-  const [error, setError] = useState(false);
 
   // let currentBuildObject = { ...currentInputs };
 
@@ -37,16 +34,6 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
   const setPageInputs = () => {
     setInputs(Object.assign(currentInputs, pageObject));
   };
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   if (radioValue === null) {
-  //     setError(true);
-  //   } else {
-  //     addResults(newResultObject);
-  //     toggleForm();
-  //   }
-  // }
 
   function handleSculptChange(e) {
     setKeycapSculpt(e.target.value);
@@ -120,9 +107,7 @@ export default function KeycapForm({ currentInputs, setInputs, materials }) {
                 control={<Radio />}
               />
             </RadioGroup>
-            <FormHelperText color="secondary">
-              {error ? "Please selection an option." : null}
-            </FormHelperText>
+           
           </Grid>
       </Grid>
     </>
