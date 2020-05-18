@@ -36,15 +36,13 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.mixins.toolbar,
   },
-
   paper: {
-    padding: theme.spacing(2),
     display: "flex",
-    flexDirection: "row",
-    overflow: "auto",
+    flexDirection: "column",
+    overflow: "hidden",
   },
   fixedHeight: {
-    height: 350,
+    height: 450,
   },
 }));
 
@@ -98,6 +96,7 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
             <Grid container spacing={2}>
               <Grid item lg={12}>
                 <Paper className={fixedHeightPaper}>
+                  
                   <BuildsView
                     myBuilds={myCollection}
                     currentUserId={currentUserId}
