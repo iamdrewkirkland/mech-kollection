@@ -88,6 +88,8 @@ export default function NewBuild({
             setInputs={setBuildInputs}
             materials={materials}
             layouts={layouts}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 2:
@@ -96,6 +98,8 @@ export default function NewBuild({
             currentInputs={buildInputs}
             setInputs={setBuildInputs}
             switchTypes={switchTypes}
+            activeStep={activeStep}
+            setActiveStep={setActiveStep}
           />
         );
       case 3:
@@ -115,11 +119,7 @@ export default function NewBuild({
 
   //function for "next" button action. on final step, submit newBuild for post.
   function handleNext() {
-    debugger;
-    console.log(buildInputs);
-    debugger;
     setActiveStep(activeStep + 1);
-    debugger;
   }
 
   //function for "back" button action
@@ -180,7 +180,7 @@ export default function NewBuild({
               {getStepContent(activeStep)}
               <div>
                 {activeStep !== 0 && <Button onClick={handleBack}>Back</Button>}
-                <Button
+                {/* <Button
                   variant="contained"
                   color="primary"
                   onClick={() => {
@@ -193,7 +193,7 @@ export default function NewBuild({
                   }}
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
+                </Button> */}
               </div>
             </React.Fragment>
           )}

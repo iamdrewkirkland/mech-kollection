@@ -18,7 +18,7 @@ export default function BuildForm({
   const activeStatus = useRef();
   const [buildName, setBuildName] = useState();
   const [buildDescription, setBuildDescription] = useState();
-  const [buildWeight, setBuildWeight] = useState();
+  const [buildWeight, setBuildWeight] = useState(null);
 
   //deconstruct all current inputs from previous form pages
   const currentStatusObjecct = { ...status };
@@ -45,6 +45,9 @@ export default function BuildForm({
       }
 
   function handleNext() {
+    if (isNaN(pageObject.buildWeight)){
+      delete pageObject.buildWeight
+    }
     setInputs(Object.assign(currentInputs, pageObject));
     setActiveStep(activeStep + 1)
   }

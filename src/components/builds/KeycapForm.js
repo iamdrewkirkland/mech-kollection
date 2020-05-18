@@ -13,6 +13,8 @@ import {
   FormLabel,
 } from "@material-ui/core";
 import { BuildContext } from "./BuildDataProvider";
+import Alert from "@material-ui/lab/Alert";
+import AlertTitle from "@material-ui/lab/AlertTitle";
 
 export default function KeycapForm({
   currentInputs,
@@ -39,8 +41,19 @@ export default function KeycapForm({
 
   function handleNext() {
     setInputs(Object.assign(currentInputs, pageObject));
-    addBuild(currentInputs);
-    setActiveStep(activeStep + 1);
+    debugger
+    if (Object.values(currentInputs).length === 1) {
+      return (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Sorry, you did not enter any values. Please go back.
+        </Alert>
+      );
+    } else {
+      debugger
+      addBuild(currentInputs);
+      setActiveStep(activeStep + 1);
+    }
   }
 
   function handleSculptChange(e) {

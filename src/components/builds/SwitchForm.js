@@ -6,7 +6,7 @@ import { Select, InputLabel, MenuItem, Button } from "@material-ui/core";
 
 export default function SwitchForm({ currentInputs, setInputs, switchTypes, activeStep, setActiveStep }) {
   const [switchName, setSwitchName] = useState();
-  const [switchWeight, setSwitchWeight] = useState();
+  const [switchWeight, setSwitchWeight] = useState(null);
   const [switchLube, setSwitchLube] = useState();
   const [switchTypeId, setSwitchTypeId] = useState();
 
@@ -18,6 +18,9 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes, acti
   };
 
   function handleNext() {
+    if (isNaN(pageObject.switchWeight)){
+      delete pageObject.switchWeight
+    }
     setInputs(Object.assign(currentInputs, pageObject));
     setActiveStep(activeStep + 1);
 
