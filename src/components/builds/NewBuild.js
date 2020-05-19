@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column nowrap",
     alignItems: "center",
   },
+  step: {
+    color: theme.palette.secondary.dark,
+  },
 }));
 
 //function that established a new build to be linked to "add build" button
@@ -151,8 +154,11 @@ export default function NewBuild({
   return (
     <>
       <Paper className={classes.paper}>
-        <Typography variant="h4">Add New Build</Typography>
-        <Stepper activeStep={activeStep}>
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          
+        >
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
@@ -172,7 +178,11 @@ export default function NewBuild({
             <React.Fragment>
               {getStepContent(activeStep)}
               <div>
-                {activeStep !== 0 && <Button onClick={handleBack}>Back</Button>}
+                {activeStep !== 0 && (
+                  <Button variant="outlined" onClick={handleBack}>
+                    Back
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           )}

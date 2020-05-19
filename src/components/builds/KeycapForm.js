@@ -76,6 +76,7 @@ export default function KeycapForm({
       <Grid container spacing={2}>
         <Grid item>
           <TextField
+            variant="outlined"
             required
             label="Name"
             onChangeCapture={handleNameChange}
@@ -84,6 +85,7 @@ export default function KeycapForm({
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Profile"
             onChange={handleProfileChange}
             value={keycapProfile}
@@ -92,6 +94,7 @@ export default function KeycapForm({
         <Grid item>
           <InputLabel id="keycapMaterial"> Keycap Material</InputLabel>
           <Select
+            variant="outlined"
             labelId="keycapMaterial"
             onChange={handleMaterialChange}
             value={keycapMaterialId}

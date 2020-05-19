@@ -62,6 +62,7 @@ export default function CaseForm({
       <Grid container spacing={1}>
         <Grid item>
           <TextField
+            variant="outlined"
             required
             label="Name"
             value={caseName}
@@ -70,6 +71,7 @@ export default function CaseForm({
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Color"
             onChange={handleColorChange}
             value={caseColor}
@@ -77,6 +79,7 @@ export default function CaseForm({
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Designer"
             onChange={handleDesignerChange}
             value={caseDesigner}
@@ -86,6 +89,7 @@ export default function CaseForm({
         <Grid item>
           <InputLabel id="layout">Layout</InputLabel>
           <Select
+            variant="outlined"
             required
             labelId="layout"
             onChange={handleLayoutChange}
@@ -101,6 +105,7 @@ export default function CaseForm({
         <Grid item>
           <InputLabel id="caseMaterial">Case Material</InputLabel>
           <Select
+            variant="outlined"
             labelId="caseMaterial"
             onChange={handleCaseMaterialChange}
             value={caseMaterialId}
@@ -115,6 +120,7 @@ export default function CaseForm({
         <Grid item>
           <InputLabel id="plateMaterial">Plate Material</InputLabel>
           <Select
+            variant="outlined"
             labelId="plateMaterial"
             onChange={handlePlateMaterialChange}
             value={plateMaterialId}

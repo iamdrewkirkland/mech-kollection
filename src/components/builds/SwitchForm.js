@@ -44,6 +44,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes, acti
       <Grid container spacing={1}>
         <Grid item>
           <TextField
+            variant="outlined"
             required
             label="Name"
             onChange={handleNameChange}
@@ -53,6 +54,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes, acti
         <Grid item>
           <InputLabel id="switchType">Type</InputLabel>
           <Select
+            variant="outlined"
             required
             labelId="switchType"
             onChange={handleTypeChange}
@@ -67,6 +69,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes, acti
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Weight (grams)"
             onChange={handleWeightChange}
             value={switchWeight}
@@ -74,6 +77,7 @@ export default function SwitchForm({ currentInputs, setInputs, switchTypes, acti
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Lube"
             onChange={handleLubeChange}
             value={switchLube}

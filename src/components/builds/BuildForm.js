@@ -72,10 +72,11 @@ export default function BuildForm({
 
   return (
     <>
-      <Typography variant="h6">Build Info</Typography>
+      <Typography variant="h4">Build Info</Typography>
       <Grid container spacing={1}>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Build Name"
             onChange={handleNameChange}
             value={buildName}
@@ -83,6 +84,7 @@ export default function BuildForm({
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Build Description"
             onChange={handleDescriptionChange}
             value={buildDescription}
@@ -90,6 +92,7 @@ export default function BuildForm({
         </Grid>
         <Grid item>
           <TextField
+            variant="outlined"
             label="Build Weight (grams)"
             onChange={handleWeightChange}
             value={buildWeight}
