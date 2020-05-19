@@ -24,7 +24,7 @@ export const BuildList = React.memo(
 
     return (
       <>
-        <Container className={classes.buildList}>
+        <Container maxWidth="xl" className={classes.buildList}>
            
           {myBuilds.map((build) => (
             <Build

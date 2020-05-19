@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexFlow: "row nowrap",
     alignContent: "center",
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
     padding: theme.spacing(2)
   },
   name: {

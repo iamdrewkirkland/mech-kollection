@@ -25,6 +25,7 @@ const drawerWidth = 210;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    padding: theme.spacing(2)
   },
   appBarSpacer: theme.mixins.toolbar,
   drawer: {
@@ -93,9 +94,9 @@ const Dashboard = ({ toggleAuth, currentUserId }) => {
           </Button>
         </Drawer>
         <main>
-          <Container maxWidth="lg" className={classes.container}>
+          <Container maxWidth="xl" className={classes.container}>
             <Grid container spacing={2}>
-              <Grid item lg={12}>
+              <Grid item xl={12}>
                 <Paper className={fixedHeightPaper}>
                   
                   <BuildsView
