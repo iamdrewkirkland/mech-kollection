@@ -1,6 +1,5 @@
 import React from "react";
 import { Avatar, Typography } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/People";
 
 export default function Friend({ friend }) {
   const first = friend.firstName;
@@ -10,9 +9,7 @@ export default function Friend({ friend }) {
   return (
     <>
       <div>
-        <Avatar variant={"rounded"}>
-          <PeopleIcon />
-        </Avatar>
+        <Avatar variant={"rounded"}></Avatar>
 
         <Typography>
           {first} {last}
