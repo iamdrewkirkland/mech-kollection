@@ -14,12 +14,24 @@ import {
   RadioGroup,
   FormLabel,
   FormHelperText,
+  makeStyles,
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    textAlign: "center",
+    margin: theme.spacing(2),
+  },
+  button: {
+    alignSelf: "center",
+  },
+}));
+
 export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
+  const classes = useStyles();
   const [buildId, setBuildId] = useState(null);
   const [wpm, setWpm] = useState(null);
   const [personalBest, setPersonalBest] = useState(false);
@@ -28,8 +40,8 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
   const [error, setError] = useState(false);
 
   const { addResults } = useContext(ResultsContext);
-  
-  //object containing values of user inputs 
+
+  //object containing values of user inputs
   const newResultObject = {
     buildId: buildId,
     date: selectedDate,
@@ -80,54 +92,67 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
   }
   return (
     <>
-      <Typography variant="h4">Results Info</Typography>
+      <Typography variant="h4" className={classes.title}>
+        Results Info
+      </Typography>
       <Grid container spacing={2}>
-        <FormControl component="div" error={error}>
-          <Grid item>
-            <InputLabel id="build">Build</InputLabel>
-            <Select labelId="build" onChange={handleBuildChange}>
-              {myCollection.map((build) => (
-                <MenuItem
-                  key={
-                    inputCheck(build, "name")
-                      ? `${build.name}`
-                      : `${build.caseName}`
-                  }
-                  value={build.id}
-                >
-                  {inputCheck(build, "name")
+        <Grid item md={3}>
+          <InputLabel id="build">Build</InputLabel>
+          <Select
+            autoWidth
+            variant="outlined"
+            labelId="build"
+            onChange={handleBuildChange}
+          >
+            {myCollection.map((build) => (
+              <MenuItem
+                key={
+                  inputCheck(build, "name")
                     ? `${build.name}`
-                    : `${build.caseName}`}
-                </MenuItem>
-              ))}
-            </Select>
-          </Grid>
-          <Grid item>
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <DateTimePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-                disableFuture={true}
-              />
-            </MuiPickersUtilsProvider>
-          </Grid>
-          <Grid item>
-            <TextField label="WPM" value={wpm} onChange={handleWpmChange} />
-          </Grid>
-          <Grid item>
-            <FormControlLabel
-              label="Personal Best?"
-              control={
-                <Switch
-                  onChange={() => {
-                    toggleBest();
-                  }}
-                />
-              }
+                    : `${build.caseName}`
+                }
+                value={build.id}
+              >
+                {inputCheck(build, "name")
+                  ? `${build.name}`
+                  : `${build.caseName}`}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item md={3}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <DateTimePicker
+              inputVariant="outlined"
+              value={selectedDate}
+              onChange={handleDateChange}
+              disableFuture={true}
             />
-          </Grid>
+          </MuiPickersUtilsProvider>
+        </Grid>
+        <Grid item md={3}>
+          <TextField
+            variant="outlined"
+            label="WPM"
+            value={wpm}
+            onChange={handleWpmChange}
+          />
+        </Grid>
+        <Grid item md={3}>
+          <FormControlLabel
+            label="Personal Best?"
+            control={
+              <Switch
+                onChange={() => {
+                  toggleBest();
+                }}
+              />
+            }
+          />
+        </Grid>
 
-          <Grid item>
+        <Grid item md={3}>
+          <FormControl component="fieldset" error={error}>
             <FormLabel>Website</FormLabel>
             <RadioGroup
               name="website"
@@ -149,19 +174,17 @@ export const ResultsForm = React.memo(({ toggleForm, myCollection }) => {
             <FormHelperText color="secondary">
               {error ? "Please selection an option." : null}
             </FormHelperText>
-          </Grid>
-        </FormControl>
-              <Grid item>
-
+          </FormControl>
+        </Grid>
         <Button
+          className={classes.button}
           variant="contained"
           color="primary"
           type="submit"
           onClick={handleSubmit}
-          >
+        >
           Submit
         </Button>
-          </Grid>
       </Grid>
     </>
   );
