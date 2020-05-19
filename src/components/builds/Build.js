@@ -27,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     justifyContent: "space-between",
   },
+  subItem: {
+    display: "flex",
+    flexFlow: "column nowrap",
+    alignItems: "center",
+  },
+  caption: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
   const classes = useStyles();
@@ -107,23 +115,32 @@ const Build = ({ build, layouts, materials, switchTypes, editThisBuild }) => {
         </Tooltip>
       </div>
       <CardContent className={classes.flexRow}>
-        <div>
+        <div className={classes.subItem}>
           <Typography variant="h5">{inputCheck("caseName")}</Typography>
+          <Typography variant="caption" className={classes.caption}>
+            case
+          </Typography>
           <Typography>{inputCheck("caseLayoutId")}</Typography>
           <Typography>{inputCheck("caseDesigner")}</Typography>
           <Typography>{inputCheck("caseMaterialId")}</Typography>
           <Typography>{inputCheck("plateMaterialId")}</Typography>
         </div>
-        <div>
+        <div className={classes.subItem}>
           <Typography variant="h5">
             {inputCheck("switchWeight") ? `${build.switchWeight}g` : null}
+          </Typography>
+          <Typography variant="caption" className={classes.caption}>
+            switches
           </Typography>
           <Typography>{inputCheck("switchTypeId")}</Typography>
           <Typography>{inputCheck("switchName")}</Typography>
           <Typography>{inputCheck("switchLube")}</Typography>
         </div>
-        <div>
+        <div className={classes.subItem}>
           <Typography variant="h5">{inputCheck("keycapName")}</Typography>
+          <Typography variant="caption" className={classes.caption}>
+            keycaps
+          </Typography>
           <Typography>{inputCheck("keycapMaterialId")}</Typography>
           <Typography>{inputCheck("keycapProfile")}</Typography>
           <Typography>{inputCheck("keycapSculpt")}</Typography>
