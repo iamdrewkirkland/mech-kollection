@@ -30,6 +30,12 @@ export const ResultsProvider = (props) => {
         })
             .then(getResults)
     }
+    const deleteResults = (resultId) => {
+        return fetch(`http://localhost:8088/results/${resultId}`, {
+            method: "DELETE",
+        })
+            .then(getResults)
+    }
 
     /*
         Load all results when the component is mounted. Ensure that
@@ -45,7 +51,7 @@ export const ResultsProvider = (props) => {
 
     return (
         <ResultsContext.Provider value={{
-            results, addResults
+            results, addResults, deleteResults
         }}>
             {props.children}
         </ResultsContext.Provider>

@@ -5,12 +5,19 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  makeStyles,
 } from "@material-ui/core";
 import { ResultsContext } from "./ResultsProvider";
 import { useState } from "react";
 import Result from "./Result";
 
+
+const useStyles = makeStyles((theme) => ({
+
+}));
+
 export const ResultsList = React.memo(({ myBuilds, }) => {
+  const classes=useStyles()
   const { results } = useContext(ResultsContext);
 
   const [myResults, setMyResults] = useState([]);
@@ -28,13 +35,16 @@ export const ResultsList = React.memo(({ myBuilds, }) => {
   return (
     <>
       <Table>
-        <TableHead>
+        <TableHead className={classes.tableHead}>
           <TableRow>
             <TableCell>Build</TableCell>
             <TableCell>WPM</TableCell>
             <TableCell>PB?</TableCell>
             <TableCell>Website</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>
+          REMOVE
+        </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

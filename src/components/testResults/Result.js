@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { TableRow, TableCell } from "@material-ui/core";
+import { TableRow, TableCell, Button } from "@material-ui/core";
 import StarRoundedIcon from "@material-ui/icons/StarRounded";
+import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+
+import { ResultsContext } from "./ResultsProvider";
 
 export default function Result({ result, matchingBuild }) {
+  const { deleteResults } = useContext(ResultsContext);
   //date time control with moment.js
   const moment = require("moment");
   moment().locale();
@@ -13,6 +17,10 @@ export default function Result({ result, matchingBuild }) {
     if (matchingBuild.hasOwnProperty(prop) && matchingBuild[prop] !== "") {
       return matchingBuild[prop];
     }
+  }
+
+  function removeResult(){
+    deleteResults(result.id)
   }
 
   return (
@@ -25,7 +33,12 @@ export default function Result({ result, matchingBuild }) {
       <TableCell>{result.wpm}</TableCell>
       <TableCell>{result.pb ? <StarRoundedIcon /> : "-"}</TableCell>
       <TableCell>{result.website}</TableCell>
-      <TableCell>{moment(result.date).format("LLL")}</TableCell>
+      <TableCell  sortDirection="desc">{moment(result.date).format("LLL")}</TableCell>
+      <TableCell>
+        <Button size="small" onClick={removeResult}>
+          <CloseRoundedIcon size="small" color="secondary" />
+        </Button>
+      </TableCell>
     </TableRow>
   );
 }
