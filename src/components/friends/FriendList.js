@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Friend from "./Friend";
-import { Container } from "@material-ui/core";
+import { Container, } from "@material-ui/core";
 import { FriendContext } from "./FriendProvider";
 import { UserContext } from "../users/UserProvider";
 
@@ -9,7 +9,6 @@ export default function FriendsList({ currentUserId }) {
   const { users } = useContext(UserContext);
 
   const [myFriends, setMyFriends] = useState([]);
- 
 
   useEffect(() => {
     const myFilteredFriends = friends.filter((friend) => {
@@ -21,6 +20,7 @@ export default function FriendsList({ currentUserId }) {
 
   return (
     <Container>
+     
       {myFriends.map((friend) => {
         const friendDetail =
           users.find((user) => user.id === friend.following) || {};

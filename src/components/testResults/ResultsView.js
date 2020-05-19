@@ -42,8 +42,8 @@ export const ResultsView = React.memo(
             className={classes.cardAppBar}
           >
             <Toolbar>
-              <Typography variant="h6" className={classes.flexGrow}>
-                Test Results
+              <Typography variant="h5" className={classes.flexGrow}>
+                TYPING TESTS
               </Typography>
               {showForm ? (
                 <Tooltip title="Back">

@@ -62,8 +62,8 @@ export const BuildsView = React.memo(({ myBuilds, currentUserId }) => {
           className={classes.cardAppBar}
         >
           <Toolbar>
-            <Typography variant="h6" className={classes.flexGrow}>
-              Build Collection
+            <Typography variant="h5" className={classes.flexGrow}>
+              COLLECTION
             </Typography>
             {showForm ? (
               <Tooltip title="Back">

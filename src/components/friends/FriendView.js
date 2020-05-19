@@ -13,6 +13,7 @@ import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 
 const useStyles = makeStyles((theme) => ({
+  root: {},
   flexGrow: {
     flexGrow: 1,
   },
@@ -30,7 +31,7 @@ export default function FriendsView({ currentUserId }) {
   }
   return (
     <>
-      <div className={classes.flexGrow}>
+      <div className={classes.root}>
         <AppBar
           position="static"
           color="primary"
@@ -38,8 +39,8 @@ export default function FriendsView({ currentUserId }) {
           className={classes.cardAppBar}
         >
           <Toolbar>
-            <Typography variant="h6" className={classes.flexGrow}>
-              Friends
+            <Typography variant="h5" className={classes.flexGrow}>
+              FRIENDS
             </Typography>
             {showForm ? (
               <Tooltip title="Back">
